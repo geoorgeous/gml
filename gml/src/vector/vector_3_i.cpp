@@ -1,7 +1,9 @@
 #include <cmath>
 
+#include "../../include/vector/vector_2_i.hpp"
 #include "../../include/vector/vector_3_f.hpp"
 #include "../../include/vector/vector_3_i.hpp"
+#include "../../include/vector/vector_4_i.hpp"
 
 namespace gml
 {
@@ -95,5 +97,10 @@ namespace gml
 	Vector3i::operator Vector3f() const
 	{
 		return { (float)x, (float)y, (float)z };
+	}
+
+	Vector3i::operator Vector4i() const
+	{
+		return { x, y, z };
 	}
 }

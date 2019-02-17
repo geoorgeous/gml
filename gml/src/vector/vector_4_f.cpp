@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "../../include/vector/vector_3_f.hpp"
 #include "../../include/vector/vector_4_f.hpp"
 #include "../../include/vector/vector_4_i.hpp"
 
@@ -48,6 +49,11 @@ namespace gml
 		z = z * magnitude / m;
 		w = w * magnitude / m;
 		return *this;
+	}
+
+	gml::Vector3f Vector4f::xyz() const
+	{
+		return { x, y, z };
 	}
 
 	float& Vector4f::operator[](int i)

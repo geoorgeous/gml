@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "../../include/vector/vector_3_i.hpp"
 #include "../../include/vector/vector_4_f.hpp"
 #include "../../include/vector/vector_4_i.hpp"
 
@@ -27,6 +28,11 @@ namespace gml
 	float Vector4i::dist(const Vector4i& v) const
 	{
 		return sqrt((float)dot(*this - v));
+	}
+
+	Vector3i Vector4i::xyz() const
+	{
+		return { x, y, z };
 	}
 
 	int& Vector4i::operator[](int i)

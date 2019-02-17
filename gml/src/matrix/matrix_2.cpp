@@ -1,16 +1,34 @@
 #include "../../include/matrix/matrix_2.hpp"
+#include "../../include/matrix/matrix_3.hpp"
+#include "../../include/matrix/matrix_4.hpp"
 
 namespace gml
 {
-	const Matrix2 Matrix2::zero{ 
+	const Matrix2 Matrix2::zero{
 		0.0f, 0.0f,
 		0.0f, 0.0f
 	};
 
-	const Matrix2 Matrix2::identity{ 
-		1.0f, 0.0f, 
-		0.0f, 1.0f 
+	const Matrix2 Matrix2::identity{
+		1.0f, 0.0f,
+		0.0f, 1.0f
 	};
+
+	Matrix2::Matrix2(float a, float b,
+		float c, float d)
+		: m{ a, b,
+			c, d }
+	{ }
+
+	Matrix2::Matrix2(const Matrix3& mat3)
+		: m{ mat3[0], mat3[1],
+		mat3[3], mat3[4] }
+	{ }
+
+	Matrix2::Matrix2(const Matrix4& mat4)
+		: m{ mat4[0], mat4[1],
+		mat4[4], mat4[5] }
+	{ }
 
 	Matrix2 Matrix2::transpose() const
 	{

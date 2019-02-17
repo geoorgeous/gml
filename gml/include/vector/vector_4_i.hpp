@@ -2,6 +2,7 @@
 
 namespace gml
 {
+	struct Vector3i;
 	struct Vector4f;
 
 	struct Vector4i
@@ -15,6 +16,7 @@ namespace gml
 		float mag() const;
 		int dot(const Vector4i& v) const;
 		float dist(const Vector4i& v) const;
+		Vector3i xyz() const;
 
 		int& operator[](int i);
 		const int& operator[](int i) const;

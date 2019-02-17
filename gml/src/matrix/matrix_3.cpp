@@ -1,4 +1,6 @@
+#include "../../include/matrix/matrix_2.hpp"
 #include "../../include/matrix/matrix_3.hpp"
+#include "../../include/matrix/matrix_4.hpp"
 
 namespace gml
 {
@@ -13,6 +15,57 @@ namespace gml
 		0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 1.0f
 	};
+
+	Matrix3::Matrix3(float a, float b, float c,
+		float d, float e, float f,
+		float g, float h, float i)
+		: m{ a, b, c,
+			d, e, f,
+			g, h, i }
+	{ }
+
+	Matrix3::Matrix3(const Matrix2& mat2)
+		: m{ mat2[0], mat2[1], 0.0f,
+		mat2[2], mat2[3], 0.0f,
+		0.0f, 0.0f, 0.0f }
+	{ }
+
+	Matrix3::Matrix3(const Matrix4& mat4)
+	{
+		*this = mat4.topLeft();
+	}
+
+	Matrix2 Matrix3::topLeft() const
+	{
+		return {
+			m[0], m[1],
+			m[3], m[4]
+		};
+	}
+
+	Matrix2 Matrix3::topRight() const
+	{
+		return {
+			m[1], m[2],
+			m[4], m[5]
+		};
+	}
+
+	Matrix2 Matrix3::bottomLeft() const
+	{
+		return {
+			m[3], m[4],
+			m[6], m[7]
+		};
+	}
+
+	Matrix2 Matrix3::bottomRight() const
+	{
+		return {
+			m[4], m[5],
+			m[7], m[8]
+		};
+	}
 
 	Matrix3 Matrix3::transpose() const
 	{

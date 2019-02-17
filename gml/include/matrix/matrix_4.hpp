@@ -1,9 +1,14 @@
 #pragma once
 
-#include "../vector/vector_4_f.hpp"
+#include "../../include/vector/vector_4_f.hpp"
 
 namespace gml
 {
+	struct Matrix2;
+	struct Matrix3;
+	struct Vector3f;
+	struct Quaternion;
+
 	struct Matrix4
 	{
 		float m[16] = {
@@ -16,6 +21,17 @@ namespace gml
 		static const Matrix4 zero;
 		static const Matrix4 identity;
 
+		Matrix4() = default;
+		Matrix4(float a, float b, float c, float d,
+			float e, float f, float g, float h,
+			float i, float j, float k, float l,
+			float m, float n, float o, float p);
+		Matrix4(const Matrix2& mat2);
+		Matrix4(const Matrix3& mat3);
+		Matrix3 topLeft() const;
+		Matrix3 topRight() const;
+		Matrix3 bottomLeft() const;
+		Matrix3 bottomRight() const;
 		Matrix4 transpose() const;
 		Matrix4 inverse() const;
 		float determinant() const;
@@ -34,9 +50,14 @@ namespace gml
 	Matrix4 transform_t(const Vector3f& v);
 	Matrix4 transform_s(float sX, float sY, float sZ);
 	Matrix4 transform_s(const Vector3f& v);
+	Matrix4 transform_r(const Quaternion& q);
 	Matrix4 transform_rX(float radians);
 	Matrix4 transform_rY(float radians);
 	Matrix4 transform_rZ(float radians);
+
+	Matrix4 perspective(float hFOV, float aspect, float zNear, float zFar);
+	Matrix4 view(const Vector3f& right, const Vector3f& up, const Vector3f& forward, const Vector3f& eye);
+	Matrix4 lookAt(const Vector3f& eye, const Vector3f& target, const Vector3f& up);
 
 	inline Matrix4 operator+(Matrix4 lhs, const Matrix4& rhs)
 	{
@@ -84,7 +105,7 @@ namespace gml
 			lhs[12] * rhs[0] + lhs[13] * rhs[4] + lhs[14] * rhs[8] + lhs[15] * rhs[12],
 			lhs[12] * rhs[1] + lhs[13] * rhs[5] + lhs[14] * rhs[9] + lhs[15] * rhs[13],
 			lhs[12] * rhs[2] + lhs[13] * rhs[6] + lhs[14] * rhs[10] + lhs[15] * rhs[14],
-			lhs[12] * rhs[3] + lhs[13] * rhs[7] + lhs[14] * rhs[11] + lhs[15] * rhs[15],
+			lhs[12] * rhs[3] + lhs[13] * rhs[7] + lhs[14] * rhs[11] + lhs[15] * rhs[15]
 		};
 	}
 

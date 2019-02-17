@@ -2,6 +2,7 @@
 
 namespace gml
 {
+	struct Vector3f;
 	struct Vector4i;
 
 	struct Vector4f
@@ -18,6 +19,7 @@ namespace gml
 		Vector4f normal() const;
 		Vector4f& normalise();
 		Vector4f& limit(float magnitude);
+		Vector3f xyz() const;
 
 		float& operator[](int i);
 		const float& operator[](int i) const;

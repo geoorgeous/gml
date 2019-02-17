@@ -3,6 +3,7 @@
 namespace gml
 {
 	struct Vector2f;
+	struct Vector3i;
 
 	struct Vector2i
 	{
@@ -27,6 +28,7 @@ namespace gml
 		Vector2i operator-() const;
 
 		operator Vector2f() const;
+		explicit operator Vector3i() const;
 	};
 
 	inline Vector2i operator+(Vector2i lhs, const Vector2i& rhs)

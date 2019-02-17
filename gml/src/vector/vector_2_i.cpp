@@ -2,6 +2,7 @@
 
 #include "../../include/vector/vector_2_f.hpp"
 #include "../../include/vector/vector_2_i.hpp"
+#include "../../include/vector/vector_3_i.hpp"
 
 namespace gml
 {
@@ -89,5 +90,10 @@ namespace gml
 	Vector2i::operator Vector2f() const
 	{
 		return { (float)x, (float)y };
+	}
+
+	Vector2i::operator Vector3i() const
+	{
+		return { x, y };
 	}
 }

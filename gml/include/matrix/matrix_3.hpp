@@ -4,6 +4,8 @@
 
 namespace gml
 {
+	struct Matrix4;
+
 	struct Matrix3
 	{
 		float m[9] = {
@@ -15,6 +17,16 @@ namespace gml
 		static const Matrix3 zero;
 		static const Matrix3 identity;
 
+		Matrix3() = default;
+		Matrix3(float a, float b, float c,
+			float d, float e, float f,
+			float g, float h, float i);
+		Matrix3(const Matrix2& mat2);
+		Matrix3(const Matrix4& mat4);
+		Matrix2 topLeft() const;
+		Matrix2 topRight() const;
+		Matrix2 bottomLeft() const;
+		Matrix2 bottomRight() const;
 		Matrix3 transpose() const;
 		Matrix3 inverse() const;
 		float determinant() const;

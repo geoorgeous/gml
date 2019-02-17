@@ -8,4 +8,4 @@ GML is being written to solidify my personal understanding in 3D mathematics and
 
 GML is currently in beta until I'm confident enough for the final release. Before the final release GML will be fully documented (via doxygen).
 
-[View documentation](https://george-mcdonagh.github.io/gml/documentation/html/).
+[View documentation](https://george-mcdonagh.github.io/gml/documentation/html/index.html).

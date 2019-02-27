@@ -7,53 +7,53 @@
 namespace gml
 {
 	Transform::Transform()
-		: m_sca(Vector3f::unit), m_posChanged(false), m_scaChanged(false), m_rotChanged(false), m_mat(Matrix4::identity)
+		: m_sca(Vector3::unit), m_posChanged(false), m_scaChanged(false), m_rotChanged(false), m_mat(Matrix4::identity)
 	{ }
 
-	const Vector3f& Transform::getPosition() const
+	const Vector3& Transform::getPosition() const
 	{
 		return m_pos;
 	}
 
-	const Vector3f& Transform::getScale() const
+	const Vector3& Transform::getScale() const
 	{
 		return m_sca;
 	}
 
-	const Vector3f& Transform::getRotation() const
+	const Vector3& Transform::getRotation() const
 	{
 		return m_rot;
 	}
 
-	const Vector3f& Transform::setPosition(const Vector3f& newPosition)
+	const Vector3& Transform::setPosition(const Vector3& newPosition)
 	{
 		m_posChanged = true;
 		return m_pos = newPosition;
 	}
 
-	const Vector3f& Transform::setScale(const Vector3f& newScale)
+	const Vector3& Transform::setScale(const Vector3& newScale)
 	{
 		m_scaChanged = true;
 		return m_sca = newScale;
 	}
 
-	const Vector3f& Transform::setRotation(const Vector3f& newRotation)
+	const Vector3& Transform::setRotation(const Vector3& newRotation)
 	{
 		m_rotChanged = true;
 		return m_rot;
 	}
 
-	const Vector3f& Transform::setPosition(float x, float y, float z)
+	const Vector3& Transform::setPosition(float x, float y, float z)
 	{
 		return setPosition({ x, y, z });
 	}
 
-	const Vector3f& Transform::setScale(float x, float y, float z)
+	const Vector3& Transform::setScale(float x, float y, float z)
 	{
 		return setScale({ x, y, z });
 	}
 
-	const Vector3f& Transform::setRotation(float x, float y, float z)
+	const Vector3& Transform::setRotation(float x, float y, float z)
 	{
 		return setRotation({ x, y, z });
 	}

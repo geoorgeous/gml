@@ -19,148 +19,139 @@ namespace gml
 	Matrix3::Matrix3(float a, float b, float c,
 		float d, float e, float f,
 		float g, float h, float i)
-		: m{ a, b, c,
-			d, e, f,
-			g, h, i }
+		: columns{
+			Vector3(a, b, c),
+			Vector3(d, e, f),
+			Vector3(g, h, i)
+	} { }
+
+	Matrix3::Matrix3(const Vector3& col0, const Vector3& col1, const Vector3& col2)
+		: columns{ col0, col1, col2 }
 	{ }
 
 	Matrix3::Matrix3(const Matrix2& mat2)
-		: m{ mat2[0], mat2[1], 0.0f,
-		mat2[2], mat2[3], 0.0f,
-		0.0f, 0.0f, 0.0f }
-	{ }
+		: columns{
+			Vector3(mat2[0][0], mat2[0][1], 0.0f),
+			Vector3(mat2[1][0], mat2[1][1], 0.0f),
+			Vector3(0.0f, 0.0f, 0.0f)
+	} { }
 
 	Matrix3::Matrix3(const Matrix4& mat4)
+		: columns{
+			Vector3(mat4[0][0], mat4[0][1], mat4[0][2]),
+			Vector3(mat4[1][0], mat4[1][1], mat4[1][2]),
+			Vector3(mat4[2][0], mat4[2][1], mat4[2][2]),
+	} { }
+
+	Vector3 Matrix3::getRow(unsigned int idx) const
 	{
-		*this = mat4.topLeft();
+		return Vector3{
+			columns[0][idx],
+			columns[1][idx],
+			columns[2][idx]
+		};
 	}
 
 	Matrix2 Matrix3::topLeft() const
 	{
 		return {
-			m[0], m[1],
-			m[3], m[4]
+			Vector2(columns[0]),
+			Vector2(columns[1])
 		};
 	}
 
 	Matrix2 Matrix3::topRight() const
 	{
 		return {
-			m[1], m[2],
-			m[4], m[5]
+			Vector2(columns[1]),
+			Vector2(columns[2])
 		};
 	}
 
 	Matrix2 Matrix3::bottomLeft() const
 	{
 		return {
-			m[3], m[4],
-			m[6], m[7]
+			Vector2(columns[0][1], columns[0][2]),
+			Vector2(columns[1][1], columns[1][2])
 		};
 	}
 
 	Matrix2 Matrix3::bottomRight() const
 	{
 		return {
-			m[4], m[5],
-			m[7], m[8]
+			Vector2(columns[1][1], columns[1][2]),
+			Vector2(columns[2][1], columns[2][2])
 		};
 	}
 
 	Matrix3 Matrix3::transpose() const
 	{
 		return {
-			m[0], m[3], m[6],
-			m[1], m[4], m[7],
-			m[2], m[5], m[8]
+			Vector3(columns[0][0], columns[1][0], columns[2][0]),
+			Vector3(columns[0][1], columns[1][1], columns[2][1]),
+			Vector3(columns[0][2], columns[1][2], columns[2][2])
 		};
 	}
 
 	Matrix3 Matrix3::inverse() const
 	{
-		return (1.0f / determinant()) * Matrix3{
-			m[4] * m[8] - m[5] * m[7],
-			-(m[3] * m[8] - m[5] * m[6]),
-			m[3] * m[7] - m[4] * m[6],
-
-			-(m[1] * m[8] - m[2] * m[7]),
-			m[0] * m[8] - m[2] * m[6],
-			-(m[0] * m[7] - m[1] * m[6]),
-
-			m[1] * m[5] - m[2] * m[4],
-			-(m[0] * m[5] - m[2] * m[3]),
-			m[0] * m[4] - m[1] * m[3]
-		}.transpose();
+		return (1.0f / determinant()) * Matrix3(
+			Vector3(
+				columns[1][1] * columns[2][2] - columns[2][1] * columns[1][2],
+				-(columns[1][0] * columns[2][2] - columns[2][0] * columns[1][2]),
+				columns[1][0] * columns[2][1] - columns[2][0] * columns[1][1]),
+			Vector3(
+				-(columns[0][1] * columns[2][2] - columns[2][1] * columns[0][2]),
+				columns[0][0] * columns[2][2] - columns[2][0] * columns[0][2],
+				-(columns[0][0] * columns[2][1] - columns[2][0] * columns[0][1])),
+			Vector3(
+				columns[0][1] * columns[1][2] - columns[1][1] * columns[0][2],
+				-(columns[0][0] * columns[1][2] - columns[1][0] * columns[0][2]),
+				columns[0][0] * columns[1][1] - columns[1][0] * columns[0][1])).transpose();
 	}
 
 	float Matrix3::determinant() const
 	{
-		return (m[0] * (m[4] * m[8] - m[5] * m[7])) - (m[1] * (m[3]* m[8] - m[5] * m[6])) + (m[2] * (m[3] * m[7] - m[4] * m[6]));
+		return (columns[0][0] * (columns[1][1] * columns[2][2] - columns[2][1] * columns[1][2])) -
+			(columns[1][0] * (columns[0][1] * columns[2][2] - columns[2][1] * columns[0][2])) +
+			(columns[2][0] * (columns[0][1] * columns[1][2] - columns[1][1] * columns[0][2]));
 	}
 
-	float& Matrix3::operator[](int i)
+	Vector3& Matrix3::operator[](unsigned int idx)
 	{
-		return m[i];
+		return columns[idx];
 	}
 
-	const float& Matrix3::operator[](int i) const
+	const Vector3& Matrix3::operator[](unsigned int idx) const
 	{
-		return m[i];
+		return columns[idx];
 	}
 
 	Matrix3& Matrix3::operator+=(const Matrix3& rhs)
 	{
-		m[0] += rhs[0];
-		m[1] += rhs[1];
-		m[2] += rhs[2];
-		m[3] += rhs[3];
-		m[4] += rhs[4];
-		m[5] += rhs[5];
-		m[6] += rhs[6];
-		m[7] += rhs[7];
-		m[8] += rhs[8];
+		for (int idx = 0; idx < 3; idx++)
+			columns[idx] += rhs.columns[idx];
 		return *this;
 	}
 
 	Matrix3& Matrix3::operator-=(const Matrix3& rhs)
 	{
-		m[0] -= rhs[0];
-		m[1] -= rhs[1];
-		m[2] -= rhs[2];
-		m[3] -= rhs[3];
-		m[4] -= rhs[4];
-		m[5] -= rhs[5];
-		m[6] -= rhs[6];
-		m[7] -= rhs[7];
-		m[8] -= rhs[8];
+		for (int idx = 0; idx < 3; idx++)
+			columns[idx] -= rhs.columns[idx];
 		return *this;
 	}
 
 	Matrix3& Matrix3::operator*=(float s)
 	{
-		m[0] *= s;
-		m[1] *= s;
-		m[2] *= s;
-		m[3] *= s;
-		m[4] *= s;
-		m[5] *= s;
-		m[6] *= s;
-		m[7] *= s;
-		m[8] *= s;
+		for (int idx = 0; idx < 3; idx++)
+			columns[idx] *= s;
 		return *this;
 	}
 
 	Matrix3& Matrix3::operator/=(float s)
 	{
-		m[0] /= s;
-		m[1] /= s;
-		m[2] /= s;
-		m[3] /= s;
-		m[4] /= s;
-		m[5] /= s;
-		m[6] /= s;
-		m[7] /= s;
-		m[8] /= s;
+		for (int idx = 0; idx < 3; idx++)
+			columns[idx] /= s;
 		return *this;
 	}
 

@@ -1,0 +1,144 @@
+#include <cmath>
+
+#include "../../include/vector/vector_2.hpp"
+#include "../../include/vector/vector_3.hpp"
+#include "../../include/vector/vector_4.hpp"
+
+namespace gml
+{
+	const Vector4 Vector4::zero{ 0.0f, 0.0f, 0.0f, 0.0f };
+
+	const Vector4 Vector4::unit{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+	Vector4::Vector4(float x, float y, float z, float w)
+		: x(x), y(y), z(z), w(w)
+	{ }
+
+	Vector4::Vector4(const Vector2& vec2)
+		: x(vec2.x), y(vec2.y)
+	{ }
+
+	Vector4::Vector4(const Vector3& vec3)
+		: x(vec3.x), y(vec3.y), z(vec3.z)
+	{ }
+
+	float Vector4::magSqr() const
+	{
+		return x * x + y * y + z * z + w * w;
+	}
+
+	float Vector4::mag() const
+	{
+		return std::sqrt(magSqr());
+	}
+
+	float Vector4::dot(const Vector4& v) const
+	{
+		return x * v.x + y * v.y + z * v.z + w * v.w;
+	}
+
+	float Vector4::dist(const Vector4& v) const
+	{
+		return std::sqrt(dot(*this - v));
+	}
+
+	Vector4 Vector4::normal() const
+	{
+		float m = mag();
+		return{ x / m, y / m, z / m, w / m };
+	}
+
+	Vector4& Vector4::normalise()
+	{
+		return *this = normal();
+	}
+
+	Vector4& Vector4::limit(float magnitude)
+	{
+		float m = mag();
+		x = x * magnitude / m;
+		y = y * magnitude / m;
+		z = z * magnitude / m;
+		w = w * magnitude / m;
+		return *this;
+	}
+
+	float& Vector4::operator[](int i)
+	{
+		return ((float*)this)[i];
+	}
+
+	const float& Vector4::operator[](int i) const
+	{
+		return ((float*)this)[i];
+	}
+
+	Vector4& Vector4::operator=(const Vector4& rhs)
+	{
+		x = rhs.x;
+		y = rhs.y;
+		z = rhs.z;
+		w = rhs.w;
+		return *this;
+	}
+
+	Vector4& Vector4::operator+=(const Vector4& rhs)
+	{
+		x += rhs.x;
+		y += rhs.y;
+		z += rhs.z;
+		w += rhs.w;
+		return *this;
+	}
+
+	Vector4& Vector4::operator-=(const Vector4& rhs)
+	{
+		x -= rhs.x;
+		y -= rhs.y;
+		z -= rhs.z;
+		w -= rhs.w;
+		return *this;
+	}
+
+	Vector4& Vector4::operator*=(const Vector4& rhs)
+	{
+		
+		x *= rhs.x;
+		y *= rhs.y;
+		z *= rhs.z;
+		w *= rhs.w;
+		return *this;
+	}
+
+	Vector4& Vector4::operator/=(const Vector4& rhs)
+	{
+		x /= rhs.x;
+		y /= rhs.y;
+		z /= rhs.z;
+		w /= rhs.w;
+		return *this;
+	}
+
+	Vector4& Vector4::operator*=(float s)
+	{
+		x *= s;
+		y *= s;
+		z *= s;
+		w *= s;
+		return *this;
+	}
+
+	Vector4& Vector4::operator/=(float s)
+	{
+		x /= s;
+		y /= s;
+		z /= s;
+		w /= s;
+		return *this;
+	}
+
+	Vector4 Vector4::operator-() const
+	{
+		return *this * -1.0f;
+	}
+}

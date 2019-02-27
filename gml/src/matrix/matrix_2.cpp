@@ -16,84 +16,91 @@ namespace gml
 
 	Matrix2::Matrix2(float a, float b,
 		float c, float d)
-		: m{ a, b,
-			c, d }
+		: columns{
+			Vector2(a, b),
+			Vector2(c, d)
+	} { }
+
+	Matrix2::Matrix2(const Vector2& col0, const Vector2& col1)
+		: columns{ col0, col1 }
 	{ }
 
 	Matrix2::Matrix2(const Matrix3& mat3)
-		: m{ mat3[0], mat3[1],
-		mat3[3], mat3[4] }
-	{ }
+		: columns{
+			Vector2(mat3[0][0], mat3[0][1]),
+			Vector2(mat3[1][0], mat3[1][1])
+	} { }
 
 	Matrix2::Matrix2(const Matrix4& mat4)
-		: m{ mat4[0], mat4[1],
-		mat4[4], mat4[5] }
-	{ }
+		: columns{
+			Vector2(mat4[0][0], mat4[0][1]),
+			Vector2(mat4[1][0], mat4[1][1])
+	} { }
+
+	Vector2 Matrix2::getRow(unsigned int idx) const
+	{
+		return Vector2{
+			columns[0][idx],
+			columns[1][idx]
+		};
+	}
 
 	Matrix2 Matrix2::transpose() const
 	{
 		return {
-			m[0], m[2],
-			m[1], m[3]
+			Vector2(columns[0][0], columns[1][0]),
+			Vector2(columns[0][1], columns[1][1])
 		};
 	}
 
 	Matrix2 Matrix2::inverse() const
 	{
 		return (1.0f / determinant()) * Matrix2 { 
-			m[3], -m[1], 
-			-m[2], m[0] 
+			Vector2(columns[1][1], -columns[0][1]), 
+			Vector2(-columns[1][0], columns[0][0])
 		};
 	}
 
 	float Matrix2::determinant() const
 	{
-		return m[0] * m[3] - m[1] * m[2];
+		return columns[0][0] * columns[1][1] - columns[1][0] * columns[0][1];
 	}
 
-	float& Matrix2::operator[](int i)
+	Vector2& Matrix2::operator[](unsigned int idx)
 	{
-		return m[i];
+		return columns[idx];
 	}
 
-	const float& Matrix2::operator[](int i) const
+	const Vector2& Matrix2::operator[](unsigned int idx) const
 	{
-		return m[i];
+		return columns[idx];
 	}
 
 	Matrix2& Matrix2::operator+=(const Matrix2& rhs)
 	{
-		m[0] += rhs[0];
-		m[1] += rhs[1];
-		m[2] += rhs[2];
-		m[3] += rhs[3];
+		for (int idx = 0; idx < 2; idx++)
+			columns[idx] += rhs.columns[idx];
 		return *this;
 	}
 
 	Matrix2& Matrix2::operator-=(const Matrix2& rhs)
 	{
-		m[0] -= rhs[0];
-		m[1] -= rhs[1];
-		m[2] -= rhs[2];
-		m[3] -= rhs[3];
+		for (int idx = 0; idx < 2; idx++)
+			columns[idx] -= rhs.columns[idx];
 		return *this;
 	}
 
 	Matrix2& Matrix2::operator*=(float s)
 	{
-		m[0] *= s;
-		m[1] *= s;
-		m[2] *= s;
-		m[3] *= s;
+		for (int idx = 0; idx < 2; idx++)
+			columns[idx] *= s;
 		return *this;
 	}
 
 	Matrix2& Matrix2::operator/=(float s)
 	{
-		m[0] /= s;
-		m[1] /= s;
-		m[2] /= s;
-		m[3] /= s;
+		for (int idx = 0; idx < 2; idx++)
+			columns[idx] /= s;
 		return *this;
 	}
 

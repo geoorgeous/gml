@@ -1,34 +1,34 @@
 #pragma once
 
-#include "matrix.hpp"
+#include "matrices.hpp"
 #include "quaternion.hpp"
 
 namespace gml
 {
-	struct Vector3f;
+	struct Vector3;
 
 	class Transform
 	{
 	public:
 		Transform();
 
-		const Vector3f& getPosition() const;
-		const Vector3f& getScale() const;
-		const Vector3f& getRotation() const;
+		const Vector3& getPosition() const;
+		const Vector3& getScale() const;
+		const Vector3& getRotation() const;
 
-		const Vector3f& setPosition(const Vector3f& newPosition);
-		const Vector3f& setScale(const Vector3f& newScale);
-		const Vector3f& setRotation(const Vector3f& newRotation);
-		const Vector3f& setPosition(float x, float y, float z);
-		const Vector3f& setScale(float x, float y, float z);
-		const Vector3f& setRotation(float x, float y, float z);
+		const Vector3& setPosition(const Vector3& newPosition);
+		const Vector3& setScale(const Vector3& newScale);
+		const Vector3& setRotation(const Vector3& newRotation);
+		const Vector3& setPosition(float x, float y, float z);
+		const Vector3& setScale(float x, float y, float z);
+		const Vector3& setRotation(float x, float y, float z);
 
 		const Matrix4& getMatrix() const;
 
 	private:
-		Vector3f m_pos;
-		Vector3f m_sca;
-		Vector3f m_rot;
+		Vector3 m_pos;
+		Vector3 m_sca;
+		Vector3 m_rot;
 		mutable Matrix4 m_mat;
 		mutable bool m_posChanged;
 		mutable bool m_scaChanged;

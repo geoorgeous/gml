@@ -5,6 +5,8 @@
  * \author \link https://georgemcdonagh.co.uk George McDonagh
  */
 
+#include <stdint.h>
+
 /** 
  * \brief The main namespace for George's Maths Library. 
  */
@@ -18,11 +20,11 @@ namespace gml
 
 	inline float radians(float degrees)
 	{
-		return degrees * _PI_OVR_180;
+		return degrees * _RADS_IN_1DEG;
 	}
 
 	inline float degrees(float radians)
 	{
-		return radians * _180_OVR_PI;
+		return radians * _DEGS_IN_1RAD;
 	}
 }

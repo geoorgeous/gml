@@ -6,8 +6,8 @@
  */
 
 #include "core.hpp"
-#include "matrix.hpp"
-#include "vector.hpp"
+#include "matrices.hpp"
 #include "quaternion.hpp"
-#include "transform.hpp"
 #include "shapes.hpp"
+#include "transform.hpp"
+#include "vectors.hpp"

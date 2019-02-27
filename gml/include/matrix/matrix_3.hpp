@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../vector/vector_3_f.hpp"
+#include "../vector/vector_3.hpp"
 
 namespace gml
 {
@@ -8,10 +8,10 @@ namespace gml
 
 	struct Matrix3
 	{
-		float m[9] = {
-			0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f
+		Vector3 columns[3] = {
+			Vector3::zero,
+			Vector3::zero,
+			Vector3::zero
 		};
 
 		static const Matrix3 zero;
@@ -21,8 +21,10 @@ namespace gml
 		Matrix3(float a, float b, float c,
 			float d, float e, float f,
 			float g, float h, float i);
+		Matrix3(const Vector3& col0, const Vector3& col1, const Vector3& col2);
 		Matrix3(const Matrix2& mat2);
 		Matrix3(const Matrix4& mat4);
+		Vector3 getRow(unsigned int idx) const;
 		Matrix2 topLeft() const;
 		Matrix2 topRight() const;
 		Matrix2 bottomLeft() const;
@@ -31,8 +33,8 @@ namespace gml
 		Matrix3 inverse() const;
 		float determinant() const;
 
-		float& operator[](int i);
-		const float& operator[](int i) const;
+		Vector3& operator[](unsigned int idx);
+		const Vector3& operator[](unsigned int idx) const;
 
 		Matrix3& operator+=(const Matrix3& rhs);
 		Matrix3& operator-=(const Matrix3& rhs);
@@ -68,19 +70,11 @@ namespace gml
 
 	inline Matrix3 operator*(const Matrix3& lhs, const Matrix3& rhs)
 	{
-		return {
-			lhs[0] * rhs[0] + lhs[1] * rhs[3] + lhs[2] * rhs[6],
-			lhs[0] * rhs[1] + lhs[1] * rhs[4] + lhs[2] * rhs[7],
-			lhs[0] * rhs[2] + lhs[1] * rhs[5] + lhs[2] * rhs[8],
-
-			lhs[3] * rhs[0] + lhs[4] * rhs[3] + lhs[5] * rhs[6],
-			lhs[3] * rhs[1] + lhs[4] * rhs[4] + lhs[5] * rhs[7],
-			lhs[3] * rhs[2] + lhs[4] * rhs[5] + lhs[5] * rhs[8],
-
-			lhs[6] * rhs[0] + lhs[7] * rhs[3] + lhs[8] * rhs[6],
-			lhs[6] * rhs[1] + lhs[7] * rhs[4] + lhs[8] * rhs[7],
-			lhs[6] * rhs[2] + lhs[7] * rhs[5] + lhs[8] * rhs[8]
-		};
+		Matrix3 result;
+		for (int col = 0; col < 3; col++)
+			for (int row = 0; row < 3; row++)
+				result[col][row] = lhs.getRow(row).dot(rhs.columns[col]);
+		return result;
 	}
 
 	inline Matrix3 operator/(const Matrix3& lhs, const Matrix3& rhs)
@@ -88,26 +82,21 @@ namespace gml
 		return lhs * rhs.inverse();
 	}
 
-	inline Vector3f operator*(const Matrix3& lhs, const Vector3f& rhs)
+	inline Vector3 operator*(const Matrix3& lhs, const Vector3& rhs)
 	{
 		return {
-			lhs[0] * rhs.x + lhs[1] * rhs.y + lhs[2] * rhs.z,
-			lhs[3] * rhs.x + lhs[4] * rhs.y + lhs[5] * rhs.z,
-			lhs[6] * rhs.x + lhs[7] * rhs.y + lhs[8] * rhs.z
+			lhs.getRow(0).dot(rhs),
+			lhs.getRow(1).dot(rhs),
+			lhs.getRow(2).dot(rhs)
 		};
 	}
 
 	inline bool operator==(const Matrix3& lhs, const Matrix3& rhs)
 	{
-		return lhs[0] == rhs[0]
-			&& lhs[1] == rhs[1]
-			&& lhs[2] == rhs[2]
-			&& lhs[3] == rhs[3]
-			&& lhs[4] == rhs[4]
-			&& lhs[5] == rhs[5]
-			&& lhs[6] == rhs[6]
-			&& lhs[7] == rhs[7]
-			&& lhs[8] == rhs[8];
+		for (int idx = 0; idx < 3; idx++)
+			if (lhs[idx] != rhs[idx])
+				return false;
+		return true;
 	}
 
 	inline bool operator!=(const Matrix3& lhs, const Matrix3& rhs)

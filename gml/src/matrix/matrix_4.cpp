@@ -5,7 +5,7 @@
 #include "../../include/matrix/matrix_3.hpp"
 #include "../../include/matrix/matrix_4.hpp"
 #include "../../include/quaternion.hpp"
-#include "../../include/vector/vector_3_f.hpp"
+#include "../../include/vector/vector_3.hpp"
 
 namespace gml
 {
@@ -28,217 +28,217 @@ namespace gml
 		float e, float f, float g, float h,
 		float i, float j, float k, float l,
 		float m, float n, float o, float p)
-		: m{ a, b, c, d,
-			e, f, g, h,
-			i, j, k, l,
-			m, n, o, p }
+		: columns{
+			Vector4(a, b, c, d),
+			Vector4(e, f, g, h),
+			Vector4(i, j, k, l),
+			Vector4(m, n, o, p)
+	} { }
+
+	Matrix4::Matrix4(const Vector4& col0, const Vector4& col1, const Vector4& col2, const Vector4& col3)
+		: columns{ col0, col1, col2, col3 }
 	{ }
 
 	Matrix4::Matrix4(const Matrix2& mat2)
-		: m{ mat2[0], mat2[1], 0.0f, 0.0f,
-		mat2[2], mat2[3], 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f }
-	{ }
+		: columns{
+			Vector4(mat2[0][0], mat2[0][1], 0.0f, 0.0f),
+			Vector4(mat2[1][0], mat2[1][1], 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 0.0f)
+	} { }
 
 	Matrix4::Matrix4(const Matrix3& mat3)
-		: m{ mat3[0], mat3[1], mat3[2], 0.0f,
-		mat3[3], mat3[4], mat3[5], 0.0f,
-		mat3[6], mat3[7], mat3[8], 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f }
-	{ }
+		: columns{
+			Vector4(mat3[0][0], mat3[0][1], mat3[0][2], 0.0f),
+			Vector4(mat3[1][0], mat3[1][1], mat3[1][2], 0.0f),
+			Vector4(mat3[2][0], mat3[2][1], mat3[2][2], 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 0.0f)
+	} { }
+
+	Vector4 Matrix4::getRow(unsigned int idx) const
+	{
+		return Vector4{
+			columns[0][idx],
+			columns[1][idx],
+			columns[2][idx],
+			columns[3][idx]
+		};
+	}
 
 	Matrix3 Matrix4::topLeft() const
 	{
 		return {
-			m[0], m[1], m[2],
-			m[4], m[5], m[6],
-			m[8], m[9], m[10]
+			Vector3(columns[0]),
+			Vector3(columns[1]),
+			Vector3(columns[2])
 		};
 	}
 
 	Matrix3 Matrix4::topRight() const
 	{
 		return {
-			m[1], m[2], m[3],
-			m[5], m[6], m[7],
-			m[9], m[10], m[11]
+			Vector3(columns[1]),
+			Vector3(columns[2]),
+			Vector3(columns[3])
 		};
 	}
 
 	Matrix3 Matrix4::bottomLeft() const
 	{
 		return {
-			m[4], m[5], m[6],
-			m[8], m[9], m[10],
-			m[12], m[13], m[14]
+			Vector3(columns[0][1], columns[0][2], columns[0][3]),
+			Vector3(columns[1][1], columns[1][2], columns[1][3]),
+			Vector3(columns[2][1], columns[2][2], columns[2][3])
 		};
 	}
 
 	Matrix3 Matrix4::bottomRight() const
 	{
 		return {
-			m[5], m[6], m[7],
-			m[9], m[10], m[11],
-			m[13], m[14], m[15]
+			Vector3(columns[1][1], columns[1][2], columns[1][3]),
+			Vector3(columns[2][1], columns[2][2], columns[2][3]),
+			Vector3(columns[3][1], columns[3][2], columns[3][3])
 		};
 	}
 
 	Matrix4 Matrix4::transpose() const
 	{
-		return {
-			m[0], m[4], m[8], m[12],
-			m[1], m[5], m[9], m[13],
-			m[2], m[6], m[10], m[14],
-			m[3], m[7], m[11], m[15]
-		};
+		return { getRow(0), getRow(1), getRow(2), getRow(3) };
 	}
 
 	Matrix4 Matrix4::inverse() const
 	{
 		return (1.0f / determinant()) * Matrix4 {
-			Matrix3{ m[5], m[6], m[7], m[9], m[10], m[11], m[13], m[14], m[15] }.determinant(),
-			-Matrix3{ m[4], m[6], m[7], m[8], m[10], m[11], m[12], m[14], m[15] }.determinant(),
-			Matrix3{ m[4], m[5], m[7], m[8], m[9], m[11], m[12], m[13], m[15] }.determinant(),
-			-Matrix3{ m[4], m[5], m[6], m[8], m[9], m[10], m[12], m[13], m[14] }.determinant(),
+			Matrix3 { 
+				columns[1][1], columns[1][2], columns[1][3],
+				columns[2][1], columns[2][2], columns[2][3],
+				columns[3][1], columns[3][2], columns[3][3] }.determinant(),
+			-Matrix3{
+				columns[1][0], columns[1][2], columns[1][3],
+				columns[2][0], columns[2][2], columns[2][3],
+				columns[3][0], columns[3][2], columns[3][3] }.determinant(),
+			Matrix3{
+				columns[1][0], columns[1][1], columns[1][3],
+				columns[2][0], columns[2][1], columns[2][3],
+				columns[3][0], columns[3][1], columns[3][3] }.determinant(),
+			-Matrix3{
+				columns[1][0], columns[1][1], columns[1][2],
+				columns[2][0], columns[2][1], columns[2][2],
+				columns[3][0], columns[3][1], columns[3][2] }.determinant(),
 
-			-Matrix3{ m[1], m[2], m[3], m[9], m[10], m[11], m[13], m[14], m[15] }.determinant(),
-			Matrix3{ m[0], m[2], m[3], m[8], m[10], m[11], m[12], m[14], m[15] }.determinant(),
-			-Matrix3{ m[0], m[1], m[3], m[8], m[9], m[11], m[12], m[13], m[15] }.determinant(),
-			Matrix3{ m[0], m[1], m[2], m[8], m[9], m[10], m[12], m[13], m[14] }.determinant(),
+			-Matrix3 {
+				columns[0][1], columns[0][2], columns[0][3],
+				columns[2][1], columns[2][2], columns[2][3],
+				columns[3][1], columns[3][2], columns[3][3] }.determinant(),
+			Matrix3{
+				columns[0][0], columns[0][2], columns[0][3],
+				columns[2][0], columns[2][2], columns[2][3],
+				columns[3][0], columns[3][2], columns[3][3] }.determinant(),
+			-Matrix3{
+				columns[0][0], columns[0][1], columns[0][3],
+				columns[2][0], columns[2][1], columns[2][3],
+				columns[3][0], columns[3][1], columns[3][3] }.determinant(),
+			Matrix3{
+				columns[0][0], columns[0][1], columns[0][2],
+				columns[2][0], columns[2][1], columns[2][2],
+				columns[3][0], columns[3][1], columns[3][2] }.determinant(),
 
-			Matrix3{ m[1], m[2], m[3], m[5], m[6], m[7], m[13], m[14], m[15] }.determinant(),
-			-Matrix3{ m[0], m[2], m[3], m[4], m[6], m[7], m[12], m[14], m[15] }.determinant(),
-			Matrix3{ m[0], m[1], m[3], m[4], m[5], m[7], m[12], m[13], m[15] }.determinant(),
-			-Matrix3{ m[0], m[1], m[2], m[4], m[5], m[6], m[12], m[13], m[14] }.determinant(),
+			Matrix3 {
+				columns[0][1], columns[0][2], columns[0][3],
+				columns[1][1], columns[1][2], columns[1][3],
+				columns[3][1], columns[3][2], columns[3][3] }.determinant(),
+			-Matrix3{
+				columns[0][0], columns[0][2], columns[0][3],
+				columns[1][0], columns[1][2], columns[1][3],
+				columns[3][0], columns[3][2], columns[3][3] }.determinant(),
+			Matrix3{
+				columns[0][0], columns[0][1], columns[0][3],
+				columns[1][0], columns[1][1], columns[1][3],
+				columns[3][0], columns[3][1], columns[3][3] }.determinant(),
+			-Matrix3{
+				columns[0][0], columns[0][1], columns[0][2],
+				columns[1][0], columns[1][1], columns[1][2],
+				columns[3][0], columns[3][1], columns[3][2] }.determinant(),
 
-			-Matrix3{ m[1], m[2], m[3], m[5], m[6], m[7], m[9], m[10], m[11] }.determinant(),
-			Matrix3{ m[0], m[2], m[3], m[4], m[6], m[7], m[8], m[10], m[11] }.determinant(),
-			-Matrix3{ m[0], m[1], m[3], m[4], m[5], m[7], m[8], m[9], m[11] }.determinant(),
-			Matrix3{ m[0], m[1], m[2], m[4], m[5], m[6], m[8], m[9], m[10] }.determinant()
+			-Matrix3 {
+				columns[0][1], columns[0][2], columns[0][3],
+				columns[1][1], columns[1][2], columns[1][3],
+				columns[2][1], columns[2][2], columns[2][3] }.determinant(),
+			Matrix3{
+				columns[0][0], columns[0][2], columns[0][3],
+				columns[1][0], columns[1][2], columns[1][3],
+				columns[2][0], columns[2][2], columns[2][3] }.determinant(),
+			-Matrix3{
+				columns[0][0], columns[0][1], columns[0][3],
+				columns[1][0], columns[1][1], columns[1][3],
+				columns[2][0], columns[2][1], columns[2][3] }.determinant(),
+			Matrix3{
+				columns[0][0], columns[0][1], columns[0][2],
+				columns[1][0], columns[1][1], columns[1][2],
+				columns[2][0], columns[2][1], columns[2][2] }.determinant()
 		}.transpose();
 	}
 
 	float Matrix4::determinant() const
 	{
-		float a = Matrix3{
-			m[5], m[6], m[7],
-			m[9], m[10], m[11],
-			m[13], m[14], m[15]
-		}.determinant() * m[0];
-
-		float b = Matrix3{
-			m[4], m[6], m[7],
-			m[8], m[10], m[11],
-			m[12], m[14], m[15]
-		}.determinant() * m[1];
-
-		float c = Matrix3{
-			m[4], m[5], m[7],
-			m[8], m[9], m[11],
-			m[12], m[13], m[15]
-		}.determinant() * m[2];
-
-		float d = Matrix3{
-			m[4], m[5], m[6],
-			m[8], m[9], m[10],
-			m[12], m[13], m[14]
-		}.determinant() * m[3];
-
-		return a - b + c - d;
+		float d = 0.0f;
+		int c, subi, subj, i, j;
+		Matrix3 submat;
+		for (c = 0; c < 4; c++)
+		{
+			subi = 0;
+			for (i = 1; i < 4; i++)
+			{
+				subj = 0;
+				for (j = 0; j < 4; j++)
+				{
+					if (j == c)
+						continue;
+					submat[subi][subj] = columns[i][j];
+					subj++;
+				}
+				subi++;
+			}
+			d = d + (std::pow(-1, c) * columns[0][c] * submat.determinant());
+		}
+		return d;
 	}
 
-	float& Matrix4::operator[](int i)
+	Vector4& Matrix4::operator[](unsigned int idx)
 	{
-		return m[i];
+		return columns[idx];
 	}
 
-	const float& Matrix4::operator[](int i) const
+	const Vector4& Matrix4::operator[](unsigned int idx) const
 	{
-		return m[i];
+		return columns[idx];
 	}
 
 	Matrix4& Matrix4::operator+=(const Matrix4& rhs)
 	{
-		m[0] += rhs[0];
-		m[1] += rhs[1];
-		m[2] += rhs[2];
-		m[3] += rhs[3];
-		m[4] += rhs[4];
-		m[5] += rhs[5];
-		m[6] += rhs[6];
-		m[7] += rhs[7];
-		m[8] += rhs[8];
-		m[9] += rhs[9];
-		m[10] += rhs[10];
-		m[11] += rhs[11];
-		m[12] += rhs[12];
-		m[13] += rhs[13];
-		m[14] += rhs[14];
-		m[15] += rhs[15];
+		for (int idx = 0; idx < 4; idx++)
+			columns[idx] += rhs.columns[idx];
 		return *this;
 	}
 
 	Matrix4& Matrix4::operator-=(const Matrix4& rhs)
 	{
-		m[0] -= rhs[0];
-		m[1] -= rhs[1];
-		m[2] -= rhs[2];
-		m[3] -= rhs[3];
-		m[4] -= rhs[4];
-		m[5] -= rhs[5];
-		m[6] -= rhs[6];
-		m[7] -= rhs[7];
-		m[8] -= rhs[8];
-		m[9] -= rhs[9];
-		m[10] -= rhs[10];
-		m[11] -= rhs[11];
-		m[12] -= rhs[12];
-		m[13] -= rhs[13];
-		m[14] -= rhs[14];
-		m[15] -= rhs[15];
+		for (int idx = 0; idx < 4; idx++)
+			columns[idx] -= rhs.columns[idx];
 		return *this;
 	}
 
 	Matrix4& Matrix4::operator*=(float s)
 	{
-		m[0] *= s;
-		m[1] *= s;
-		m[2] *= s;
-		m[3] *= s;
-		m[4] *= s;
-		m[5] *= s;
-		m[6] *= s;
-		m[7] *= s;
-		m[8] *= s;
-		m[9] *= s;
-		m[10] *= s;
-		m[11] *= s;
-		m[12] *= s;
-		m[13] *= s;
-		m[14] *= s;
-		m[15] *= s;
+		for (int idx = 0; idx < 4; idx++)
+			columns[idx] *= s;
 		return *this;
 	}
 
 	Matrix4& Matrix4::operator/=(float s)
 	{
-		m[0] /= s;
-		m[1] /= s;
-		m[2] /= s;
-		m[3] /= s;
-		m[4] /= s;
-		m[5] /= s;
-		m[6] /= s;
-		m[7] /= s;
-		m[8] /= s;
-		m[9] /= s;
-		m[10] /= s;
-		m[11] /= s;
-		m[12] /= s;
-		m[13] /= s;
-		m[14] /= s;
-		m[15] /= s;
+		for (int idx = 0; idx < 4; idx++)
+			columns[idx] /= s;
 		return *this;
 	}
 
@@ -250,14 +250,14 @@ namespace gml
 	Matrix4 transform_t(float tX, float tY, float tZ)
 	{
 		return {
-			1.0f, 0.0f, 0.0f, tX,
-			0.0f, 1.0f, 0.0f, tY,
-			0.0f, 0.0f, 1.0f, tZ,
-			0.0f, 0.0f, 0.0f, 1.0f
+			Vector4(1.0f, 0.0f, 0.0f, 0.0f),
+			Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, 1.0f, 0.0f),
+			Vector4(tX, tY, tZ, 1.0f)
 		};
 	}
 
-	Matrix4 transform_t(const Vector3f& v)
+	Matrix4 transform_t(const Vector3& v)
 	{
 		return transform_t(v.x, v.y, v.z);
 	}
@@ -265,14 +265,14 @@ namespace gml
 	Matrix4 transform_s(float sX, float sY, float sZ)
 	{
 		return {
-			sX, 0.0f, 0.0f, 0.0f,
-			0.0f, sY, 0.0f, 0.0f,
-			0.0f, 0.0f, sZ, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f
+			Vector4(sX, 0.0f, 0.0f, 0.0f),
+			Vector4(0.0f, sY, 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, sZ, 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
 
-	Matrix4 transform_s(const Vector3f& v)
+	Matrix4 transform_s(const Vector3& v)
 	{
 		return transform_t(v.x, v.y, v.z);
 	}
@@ -292,88 +292,76 @@ namespace gml
 		float zw = q.z * q.w;
 
 		return {
-			1 - 2 * (yy + zz),
-			2 * (xy + zw),
-			2 * (xz - yw),
-			0,
-
-			2 * (xy - zw),
-			1 - 2 * (xx + zz),
-			2 * (yz + xw),
-			0,
-
-			2 * (xz + yw),
-			2 * (yz - xw),
-			1 - 2 * (xx + yy),
-			0,
-			
-			0, 0, 0, 1
+			Vector4(1.0f - 2.0f * (yy + zz), 2.0f * (xy - zw), 2.0f * (xz + yw), 0.0f),
+			Vector4(2.0f * (xy + zw), 1.0f - 2.0f * (xx + zz), 2.0f * (yz - xw), 0.0f),
+			Vector4(2.0f * (xz - yw), 2.0f * (yz + xw), 1.0f - 2.0f * (xx + yy), 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
 
 	Matrix4 transform_rX(float radians)
 	{
 		return {
-			1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, cosf(radians), -sinf(radians), 0.0f,
-			0.0f, sinf(radians), cosf(radians), 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f
+			Vector4(1.0f, 0.0f, 0.0f, 0.0f),
+			Vector4(0.0f, cosf(radians), sinf(radians), 0.0f),
+			Vector4(0.0f, -sinf(radians), cosf(radians), 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
 
 	Matrix4 transform_rY(float radians)
 	{
 		return {
-			cosf(radians), 0.0f, sinf(radians), 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f,
-			-sinf(radians), 0.0f, cosf(radians), 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f
+			Vector4(cosf(radians), 0.0f, -sinf(radians), 0.0f),
+			Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+			Vector4(sinf(radians), 0.0f, cosf(radians), 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
 
 	Matrix4 transform_rZ(float radians)
 	{
 		return {
-			cosf(radians), -sinf(radians), 0.0f, 0.0f,
-			sinf(radians), cosf(radians), 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f
+			Vector4(cosf(radians), sinf(radians), 0.0f, 0.0f),
+			Vector4(-sinf(radians), cosf(radians), 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, 1.0f, 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
 
-	Matrix4 perspective(float vFOV, float aspect, float zNear, float zFar)
+	Matrix4 perspective(float verticalFOV, float aspect, float zNear, float zFar)
 	{
 		const float zRange = zNear - zFar;
-		const float f = 1.0f / tanf(vFOV / 2.0f);
+		const float f = 1.0f / tanf(verticalFOV / 2.0f);
 		return Matrix4{
-			f / aspect, 0, 0, 0,
-			0, f, 0, 0,
-			0, 0, (zFar + zNear) / zRange, (2 * zFar * zNear) / zRange,
-			0, 0, -1, 0
+			Vector4(f / aspect, 0.0f, 0.0f, 0.0f),
+			Vector4(0.0f, f, 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, (zFar + zNear) / zRange, -1.0f),
+			Vector4(0.0f, 0.0f, (2 * zFar * zNear) / zRange, 0.0f)
 		};
 	}
 
-	Matrix4 view(const gml::Vector3f& right, const gml::Vector3f& up, const gml::Vector3f& forward, const gml::Vector3f& eye)
+	Matrix4 view(const gml::Vector3& right, const gml::Vector3& up, const gml::Vector3& forward, const gml::Vector3& eye)
 	{
 		return Matrix4 {
-			right.x, up.x, forward.x, -eye.x,
-			right.y, up.y, forward.y, -eye.y,
-			right.z, up.z, forward.z, -eye.z,
-			0.0f, 0.0f, 0.0f, 1.0f
+			Vector4(right.x, right.y, right.z, 0.0f),
+			Vector4(up.x, up.y, up.z, 0.0f),
+			Vector4(-forward.x, -forward.y, -forward.z, 0.0f),
+			Vector4(-eye.x, -eye.y, -eye.z, 1.0f)
 		};
 	}
 
-	Matrix4 lookAt(const Vector3f& eye, const Vector3f& target, const Vector3f& up)
+	Matrix4 lookAt(const Vector3& eye, const Vector3& target, const Vector3& up)
 	{
-		gml::Vector3f f = (target - eye).normal();
-		gml::Vector3f s = f.cross(up).normal();
-		gml::Vector3f u = s.cross(f);
+		gml::Vector3 f = (eye - target).normal();
+		gml::Vector3 s = up.cross(f).normal();
+		gml::Vector3 u = f.cross(s);
 
-		return Matrix4 {
-			s.x, s.y, s.z, -s.dot(eye),
-			u.x, u.y, u.z, -u.dot(eye),
-			-f.x, -f.y, -f.z, f.dot(eye),
-			0, 0, 0, 1
+		return Matrix4{
+			Vector4(s.x, u.x, f.x, 0.0f),
+			Vector4(s.y, u.y, f.y, 0.0f),
+			Vector4(s.z, u.z, f.z, 0.0f),
+			Vector4(s.dot(eye), u.dot(eye), f.dot(eye), 1.0f)
 		};
 	}
 }

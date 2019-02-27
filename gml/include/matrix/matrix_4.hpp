@@ -1,21 +1,21 @@
 #pragma once
 
-#include "../../include/vector/vector_4_f.hpp"
+#include "../../include/vector/vector_4.hpp"
 
 namespace gml
 {
 	struct Matrix2;
 	struct Matrix3;
-	struct Vector3f;
+	struct Vector3;
 	struct Quaternion;
 
 	struct Matrix4
 	{
-		float m[16] = {
-			0.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f
+		Vector4 columns[4] = {
+			Vector4::zero,
+			Vector4::zero,
+			Vector4::zero,
+			Vector4::zero
 		};
 
 		static const Matrix4 zero;
@@ -26,8 +26,10 @@ namespace gml
 			float e, float f, float g, float h,
 			float i, float j, float k, float l,
 			float m, float n, float o, float p);
+		Matrix4(const Vector4& col0, const Vector4& col1, const Vector4& col2, const Vector4& col3);
 		Matrix4(const Matrix2& mat2);
 		Matrix4(const Matrix3& mat3);
+		Vector4 getRow(unsigned int idx) const;
 		Matrix3 topLeft() const;
 		Matrix3 topRight() const;
 		Matrix3 bottomLeft() const;
@@ -36,8 +38,8 @@ namespace gml
 		Matrix4 inverse() const;
 		float determinant() const;
 
-		float& operator[](int i);
-		const float& operator[](int i) const;
+		Vector4& operator[](unsigned int idx);
+		const Vector4& operator[](unsigned int idx) const;
 
 		Matrix4& operator+=(const Matrix4& rhs);
 		Matrix4& operator-=(const Matrix4& rhs);
@@ -47,17 +49,17 @@ namespace gml
 	};
 
 	Matrix4 transform_t(float tX, float tY, float tZ);
-	Matrix4 transform_t(const Vector3f& v);
+	Matrix4 transform_t(const Vector3& v);
 	Matrix4 transform_s(float sX, float sY, float sZ);
-	Matrix4 transform_s(const Vector3f& v);
+	Matrix4 transform_s(const Vector3& v);
 	Matrix4 transform_r(const Quaternion& q);
 	Matrix4 transform_rX(float radians);
 	Matrix4 transform_rY(float radians);
 	Matrix4 transform_rZ(float radians);
 
-	Matrix4 perspective(float hFOV, float aspect, float zNear, float zFar);
-	Matrix4 view(const Vector3f& right, const Vector3f& up, const Vector3f& forward, const Vector3f& eye);
-	Matrix4 lookAt(const Vector3f& eye, const Vector3f& target, const Vector3f& up);
+	Matrix4 perspective(float verticalFOV, float aspect, float zNear, float zFar);
+	Matrix4 view(const Vector3& right, const Vector3& up, const Vector3& forward, const Vector3& eye);
+	Matrix4 lookAt(const Vector3& eye, const Vector3& target, const Vector3& up);
 
 	inline Matrix4 operator+(Matrix4 lhs, const Matrix4& rhs)
 	{
@@ -86,27 +88,11 @@ namespace gml
 
 	inline Matrix4 operator*(const Matrix4& lhs, const Matrix4& rhs)
 	{
-		return {
-			lhs[0] * rhs[0] + lhs[1] * rhs[4] + lhs[2] * rhs[8] + lhs[3] * rhs[12],
-			lhs[0] * rhs[1] + lhs[1] * rhs[5] + lhs[2] * rhs[9] + lhs[3] * rhs[13],
-			lhs[0] * rhs[2] + lhs[1] * rhs[6] + lhs[2] * rhs[10] + lhs[3] * rhs[14],
-			lhs[0] * rhs[3] + lhs[1] * rhs[7] + lhs[2] * rhs[11] + lhs[3] * rhs[15],
-
-			lhs[4] * rhs[0] + lhs[5] * rhs[4] + lhs[6] * rhs[8] + lhs[7] * rhs[12],
-			lhs[4] * rhs[1] + lhs[5] * rhs[5] + lhs[6] * rhs[9] + lhs[7] * rhs[13],
-			lhs[4] * rhs[2] + lhs[5] * rhs[6] + lhs[6] * rhs[10] + lhs[7] * rhs[14],
-			lhs[4] * rhs[3] + lhs[5] * rhs[7] + lhs[6] * rhs[11] + lhs[7] * rhs[15],
-
-			lhs[8] * rhs[0] + lhs[9] * rhs[4] + lhs[10] * rhs[8] + lhs[11] * rhs[12],
-			lhs[8] * rhs[1] + lhs[9] * rhs[5] + lhs[10] * rhs[9] + lhs[11] * rhs[13],
-			lhs[8] * rhs[2] + lhs[9] * rhs[6] + lhs[10] * rhs[10] + lhs[11] * rhs[14],
-			lhs[8] * rhs[3] + lhs[9] * rhs[7] + lhs[10] * rhs[11] + lhs[11] * rhs[15],
-
-			lhs[12] * rhs[0] + lhs[13] * rhs[4] + lhs[14] * rhs[8] + lhs[15] * rhs[12],
-			lhs[12] * rhs[1] + lhs[13] * rhs[5] + lhs[14] * rhs[9] + lhs[15] * rhs[13],
-			lhs[12] * rhs[2] + lhs[13] * rhs[6] + lhs[14] * rhs[10] + lhs[15] * rhs[14],
-			lhs[12] * rhs[3] + lhs[13] * rhs[7] + lhs[14] * rhs[11] + lhs[15] * rhs[15]
-		};
+		Matrix4 result;
+		for (int col = 0; col < 4; col++)
+			for (int row = 0; row < 4; row++)
+				result[col][row] = lhs.getRow(row).dot(rhs.columns[col]);
+		return result;
 	}
 
 	inline Matrix4 operator/(const Matrix4& lhs, const Matrix4& rhs)
@@ -114,34 +100,22 @@ namespace gml
 		return lhs * rhs.inverse();
 	}
 
-	inline Vector4f operator*(const Matrix4& lhs, const Vector4f& rhs)
+	inline Vector4 operator*(const Matrix4& lhs, const Vector4& rhs)
 	{
 		return {
-			lhs[0] * rhs.x + lhs[1] * rhs.y + lhs[2] * rhs.z + lhs[3] * rhs.w,
-			lhs[4] * rhs.x + lhs[5] * rhs.y + lhs[6] * rhs.z + lhs[7] * rhs.w,
-			lhs[8] * rhs.x + lhs[9] * rhs.y + lhs[10] * rhs.z + lhs[11] * rhs.w,
-			lhs[12] * rhs.x + lhs[13] * rhs.y + lhs[14] * rhs.z + lhs[15] * rhs.w
+			lhs.getRow(0).dot(rhs),
+			lhs.getRow(1).dot(rhs),
+			lhs.getRow(2).dot(rhs),
+			lhs.getRow(3).dot(rhs)
 		};
 	}
 
 	inline bool operator==(const Matrix4& lhs, const Matrix4& rhs)
 	{
-		return lhs[0] == rhs[0]
-			&& lhs[1] == rhs[1]
-			&& lhs[2] == rhs[2]
-			&& lhs[3] == rhs[3]
-			&& lhs[4] == rhs[4]
-			&& lhs[5] == rhs[5]
-			&& lhs[6] == rhs[6]
-			&& lhs[7] == rhs[7]
-			&& lhs[8] == rhs[8]
-			&& lhs[9] == rhs[9]
-			&& lhs[10] == rhs[10]
-			&& lhs[11] == rhs[11]
-			&& lhs[12] == rhs[12]
-			&& lhs[13] == rhs[13]
-			&& lhs[14] == rhs[14]
-			&& lhs[15] == rhs[15];
+		for (int idx = 0; idx < 4; idx++)
+			if (lhs[idx] != rhs[idx])
+				return false;
+		return true;
 	}
 
 	inline bool operator!=(const Matrix4& lhs, const Matrix4& rhs)

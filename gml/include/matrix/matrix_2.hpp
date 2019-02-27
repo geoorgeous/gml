@@ -1,3 +1,8 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
 
 #include "../vector/vector_2.hpp"
@@ -9,13 +14,10 @@ namespace gml
 
 	struct Matrix2
 	{
-		Vector2 columns[2] = {
-			Vector2::zero,
-			Vector2::zero
-		};
-
 		static const Matrix2 zero;
 		static const Matrix2 identity;
+
+		Vector2 columns[2];
 
 		Matrix2() = default;
 		Matrix2(float a, float b,
@@ -66,8 +68,8 @@ namespace gml
 	inline Matrix2 operator*(const Matrix2& lhs, const Matrix2& rhs)
 	{
 		Matrix2 result;
-		for (int col = 0; col < 2; col++)
-			for (int row = 0; row < 2; row++)
+		for (unsigned int col = 0; col < 2; col++)
+			for (unsigned int row = 0; row < 2; row++)
 				result[col][row] = lhs.getRow(row).dot(rhs.columns[col]);
 		return result;
 	}
@@ -87,7 +89,7 @@ namespace gml
 
 	inline bool operator==(const Matrix2& lhs, const Matrix2& rhs)
 	{
-		for (int idx = 0; idx < 2; idx++)
+		for (unsigned int idx = 0; idx < 2; idx++)
 			if (lhs[idx] != rhs[idx])
 				return false;
 		return true;

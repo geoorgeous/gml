@@ -1,9 +1,9 @@
-#pragma once
-
 /**
  * \file
  * \author \link https://georgemcdonagh.co.uk George McDonagh
  */
+
+#pragma once
 
 #include "../vector/vector_2.hpp"
 
@@ -19,6 +19,8 @@ namespace gml
 	 */
 	struct Rect
 	{
+		static Rect unit;
+
 		Vector2 center;
 		Vector2 halfExtents;
 		float &x = center.x, &y = center.y;

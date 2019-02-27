@@ -1,17 +1,24 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
+
+#include "vector/vector_3.hpp"
 
 namespace gml
 {
-	struct Vector3;
-
 	struct Quaternion
 	{
+		static Quaternion identity;
+
 		float w = 0.0f;
 		float x = 0.0f;
 		float y = 0.0f;
 		float z = 0.0f;
 
-		static Quaternion identity;
+		static Quaternion fromEulerAngles(const Vector3& eulerAngles);
 
 		Vector3 xyz() const;
 		Quaternion conjugate() const;
@@ -23,8 +30,6 @@ namespace gml
 		Quaternion& operator+=(const Quaternion& rhs);
 		Quaternion& operator-=(const Quaternion& rhs);
 		Quaternion& operator*=(const Quaternion& rhs);
-
-		static Quaternion fromEulerAngles(const Vector3& eulerAngles);
 	};
 
 	Quaternion axisAngle(float degrees, const Vector3& axis, bool normaliseAxis);

@@ -1,3 +1,8 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
 
 #include <cmath>
@@ -9,17 +14,17 @@ namespace gml
 	{
 		T components[Size] = { 0 };
 
-		float magSqr() const
+		float magnitudeSq() const
 		{
-			float magSqr = 0.0f;
+			float magSq = 0.0f;
 			for (unsigned int idx = 0; idx < Size; idx++)
-				magSqr += components[idx] * components[idx];
-			return magSqr;
+				magSq += components[idx] * components[idx];
+			return magSq;
 		}
 
-		float mag() const
+		float magnitude() const
 		{
-			return std::sqrt(magSqr());
+			return std::sqrt(magnitudeSq());
 		}
 
 		float dot(const Vector<T, Size>& v) const
@@ -32,7 +37,7 @@ namespace gml
 
 		Vector<T, Size> normal() const
 		{
-			return *this / mag();
+			return *this / magnitude();
 		}
 
 		Vector<T, Size>& normalise()
@@ -40,11 +45,11 @@ namespace gml
 			return *this = normal();
 		}
 
-		Vector<T, Size>& limit(float magnitude)
+		Vector<T, Size>& limit(float newMagnitude)
 		{
-			float m = mag();
+			float m = magnitude();
 			for (unsigned int idx = 0; idx < Size; idx++)
-				components[idx] += components[idx] * magnitude / m;
+				components[idx] += components[idx] * newMagnitude / m;
 			return *this;
 		}
 

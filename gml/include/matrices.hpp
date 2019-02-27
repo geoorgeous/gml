@@ -1,3 +1,8 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
 
 #include "matrix/matrix_2.hpp"

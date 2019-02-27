@@ -1,9 +1,9 @@
-#pragma once
-
 /**
  * \file
  * \author \link https://georgemcdonagh.co.uk George McDonagh
  */
+
+#pragma once
 
 namespace gml
 {
@@ -16,11 +16,15 @@ namespace gml
 	 */
 	struct Vector2
 	{
-		float x = 0.0f; /**< The first component of the Vector2. \note This component can also be accessed using operator[](int).*/
-		float y = 0.0f; /**< The second component of the Vector2. \note This component can also be accessed using operator[](int).*/
-
 		static const Vector2 zero; /**< A Vector2 with x and y members set to 0.0f. */
 		static const Vector2 unit; /**< A Vector2 with x and y members set to 1.0f. The magnitude of this Vector2 will be 1.0f; hence a unit vector. */
+		static const Vector2 posX;
+		static const Vector2 negX;
+		static const Vector2 posY;
+		static const Vector2 negY;
+
+		float x = 0.0f; /**< The first component of the Vector2. \note This component can also be accessed using operator[](int).*/
+		float y = 0.0f; /**< The second component of the Vector2. \note This component can also be accessed using operator[](int).*/
 
 		Vector2() = default;
 
@@ -35,14 +39,14 @@ namespace gml
 		 * \details Useful for when performance is paramount and the user wishes to avoid the use of the sqrt() function used in mag().
 		 * \returns The magnitude of the vector squared.
 		 */
-		float magSqr() const;
+		float magnitudeSq() const;
 
 		/**
 		 * \brief Calculates and returns the magnitude of the vector.
 		 * \details The vector's magnitude is also known as the vector's length or size.
 		 * \returns The magnitude of the vector.
 		 */
-		float mag() const;
+		float magnitude() const;
 
 		/**
 		 * \brief Calculates and returns the dot product of this vector and another.
@@ -56,7 +60,9 @@ namespace gml
 		 * \param v The other vector.
 		 * \returns The distance between the two vectors in 2D space.
 		 */
-		float dist(const Vector2& v) const;
+		float distance(const Vector2& v) const;
+
+		float angle(const Vector2& v) const;
 
 		/**
 		 * \brief Calculates and returns a unit vector with the same direction as this vector.
@@ -73,23 +79,23 @@ namespace gml
 		/**
 		 * \brief Limits the vector's magnitude.
 		 * \details This will make the vector keep its direction but extend/shrink its magnitude.
-		 * \param magnitude The magnitude that the vector will be given.
+		 * \param newMagnitude The magnitude that the vector will be given.
 		 */
-		Vector2& limit(float magnitude);
+		Vector2& limit(float newMagnitude);
 
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 1].
-	 	 * \returns A modifiable reference to the component found at position i.
+	 	 * \returns A modifiable reference to the component found at position idx.
 		 */
-		float& operator[](int i);
+		float& operator[](unsigned int idx);
 
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 1].
-		 * \returns A non-mutable reference to the component found at position i.
+		 * \returns A non-mutable reference to the component found at position idx.
 		 */
-		const float& operator[](int i) const;
+		const float& operator[](unsigned int idx) const;
 
 		Vector2& operator=(const Vector2& rhs);
 

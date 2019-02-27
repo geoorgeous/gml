@@ -1,9 +1,11 @@
-#pragma once
-
 /**
  * \file
  * \author \link https://georgemcdonagh.co.uk George McDonagh
  */
+
+#pragma once
+
+#include "../vector/vector_3.hpp"
 
 namespace gml
 {
@@ -13,11 +15,13 @@ namespace gml
 
 	struct Sphere
 	{
+		static Sphere unit;
+
 		Vector3 center;
+		float radius = 0.0f;
 		float& x = center.x;
 		float& y = center.y;
 		float& z = center.z;
-		float radius = 0.0f;
 
 		float getDiameter() const;
 

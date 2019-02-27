@@ -1,9 +1,9 @@
-#pragma once
-
 /**
  * \file
  * \author \link https://georgemcdonagh.co.uk George McDonagh
  */
+
+#pragma once
 
 #include "../vector/vector_3.hpp"
 
@@ -15,6 +15,8 @@ namespace gml
 
 	struct Cuboid
 	{
+		static Cuboid unit;
+
 		Vector3 center;
 		Vector3 halfExtents;
 		float& x = center.x;

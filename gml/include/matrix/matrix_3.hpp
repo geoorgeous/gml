@@ -1,21 +1,23 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
 
 #include "../vector/vector_3.hpp"
 
 namespace gml
 {
+	struct Matrix2;
 	struct Matrix4;
 
 	struct Matrix3
 	{
-		Vector3 columns[3] = {
-			Vector3::zero,
-			Vector3::zero,
-			Vector3::zero
-		};
-
 		static const Matrix3 zero;
 		static const Matrix3 identity;
+
+		Vector3 columns[3];
 
 		Matrix3() = default;
 		Matrix3(float a, float b, float c,
@@ -25,10 +27,6 @@ namespace gml
 		Matrix3(const Matrix2& mat2);
 		Matrix3(const Matrix4& mat4);
 		Vector3 getRow(unsigned int idx) const;
-		Matrix2 topLeft() const;
-		Matrix2 topRight() const;
-		Matrix2 bottomLeft() const;
-		Matrix2 bottomRight() const;
 		Matrix3 transpose() const;
 		Matrix3 inverse() const;
 		float determinant() const;
@@ -71,8 +69,8 @@ namespace gml
 	inline Matrix3 operator*(const Matrix3& lhs, const Matrix3& rhs)
 	{
 		Matrix3 result;
-		for (int col = 0; col < 3; col++)
-			for (int row = 0; row < 3; row++)
+		for (unsigned int col = 0; col < 3; col++)
+			for (unsigned int row = 0; row < 3; row++)
 				result[col][row] = lhs.getRow(row).dot(rhs.columns[col]);
 		return result;
 	}
@@ -93,7 +91,7 @@ namespace gml
 
 	inline bool operator==(const Matrix3& lhs, const Matrix3& rhs)
 	{
-		for (int idx = 0; idx < 3; idx++)
+		for (unsigned int idx = 0; idx < 3; idx++)
 			if (lhs[idx] != rhs[idx])
 				return false;
 		return true;

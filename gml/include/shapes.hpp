@@ -1,3 +1,8 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #include "shapes/circle.hpp"
 #include "shapes/cuboid.hpp"
 #include "shapes/line_2d.hpp"

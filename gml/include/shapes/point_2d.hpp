@@ -1,9 +1,9 @@
-#pragma once
-
 /**
  * \file
  * \author \link https://georgemcdonagh.co.uk George McDonagh
  */
+
+#pragma once
 
 #include "../vector/vector_2.hpp"
 

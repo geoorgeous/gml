@@ -1,9 +1,21 @@
-#pragma once
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
 
-#include "../shapes.hpp"
+#pragma once
 
 namespace gml
 {
+	struct Point2D;
+	struct Line2D;
+	struct Circle;
+	struct Rect;
+	struct Point3D;
+	struct Line3D;
+	struct Sphere;
+	struct Cuboid;
+
 	bool intersection(const Point2D& a, const Point2D& b);
 	bool intersection(const Point2D& a, const Line2D& b);
 	bool intersection(const Point2D& a, const Circle& b);

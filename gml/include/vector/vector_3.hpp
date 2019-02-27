@@ -1,3 +1,8 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
 
 namespace gml
@@ -8,10 +13,6 @@ namespace gml
 
 	struct Vector3
 	{
-		float x = 0.0f;
-		float y = 0.0f;
-		float z = 0.0f;
-
 		static const Vector3 zero;
 		static const Vector3 unit;
 		static const Vector3 posX;
@@ -21,22 +22,27 @@ namespace gml
 		static const Vector3 posZ;
 		static const Vector3 negZ;
 
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+
 		Vector3() = default;
 		Vector3(float x, float y, float z);
 		Vector3(const Vector2& vec2);
 		Vector3(const Vector4& vec4);
 
-		float magSqr() const;
-		float mag() const;
+		float magnitudeSq() const;
+		float magnitude() const;
 		float dot(const Vector3& v) const;
-		float dist(const Vector3& v) const;
+		float distance(const Vector3& v) const;
+		float angle(const Vector3& v) const;
 		Vector3 cross(const Vector3& v) const;
 		Vector3 normal() const;
 		Vector3& normalise();
-		Vector3& limit(float magnitude);
+		Vector3& limit(float newMagnitude);
 
-		float& operator[](int i);
-		const float& operator[](int i) const;
+		float& operator[](unsigned int idx);
+		const float& operator[](unsigned int idx) const;
 		Vector3& operator=(const Vector3& rhs);
 		Vector3& operator+=(const Vector3& rhs);
 		Vector3& operator-=(const Vector3& rhs);

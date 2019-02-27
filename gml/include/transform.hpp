@@ -1,7 +1,13 @@
+/**
+ * \file
+ * \author \link https://georgemcdonagh.co.uk George McDonagh
+ */
+
 #pragma once
 
 #include "matrices.hpp"
 #include "quaternion.hpp"
+#include "vectors.hpp"
 
 namespace gml
 {

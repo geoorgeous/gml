@@ -2,13 +2,11 @@
 
 ![version](https://img.shields.io/badge/version-1.0b-blue.svg?maxAge=2592000)
 
+[API Documentation](https://george-mcdonagh.github.io/gml/documentation/html/index.html).
+
 GML was written to solidify my personal understanding in 3D mathematics and to assist me in writing 3D graphics applications. Though this is a pet project of mine I am developing and managing this library with the idea that others might use it. It's important to me that GML is relatively light-weight, has a well documented API, and is easy and intuitive to use and integrate in to your own projects.
 
-## Usage
-
 GML is a statically linked library. Simply include the headers somewhere in your project and link against `gml.lib` and you're good to go! Pre-compiled binaries of the latest version of GML can be found in [bin/](https://github.com/george-mcdonagh/gml/tree/master/bin).
-
-[API Documentation](https://george-mcdonagh.github.io/gml/documentation/html/index.html).
 
 # Functionality
 

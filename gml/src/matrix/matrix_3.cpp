@@ -1,5 +1,6 @@
-#include "../../include/gml/matrix/matrix_2.hpp"
 #include "../../include/gml/matrix/matrix_3.hpp"
+
+#include "../../include/gml/matrix/matrix_2.hpp"
 #include "../../include/gml/matrix/matrix_4.hpp"
 
 namespace gml
@@ -15,6 +16,13 @@ namespace gml
 		0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 1.0f
 	};
+
+	Matrix3::Matrix3(float diagonal)
+		: columns{
+			Vector3(diagonal, 0.0f, 0.0f),
+			Vector3(0.0f, diagonal, 0.0f),
+			Vector3(0.0f, 0.0f, diagonal)
+	} { }
 
 	Matrix3::Matrix3(float a, float b, float c,
 		float d, float e, float f,

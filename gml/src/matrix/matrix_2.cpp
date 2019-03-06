@@ -1,4 +1,5 @@
 #include "../../include/gml/matrix/matrix_2.hpp"
+
 #include "../../include/gml/matrix/matrix_3.hpp"
 #include "../../include/gml/matrix/matrix_4.hpp"
 
@@ -13,6 +14,12 @@ namespace gml
 		1.0f, 0.0f,
 		0.0f, 1.0f
 	};
+
+	Matrix2::Matrix2(float diagonal)
+		: columns{
+			Vector2(diagonal, 0.0f),
+			Vector2(0.0f, diagonal)
+	} { }
 
 	Matrix2::Matrix2(float a, float b,
 		float c, float d)

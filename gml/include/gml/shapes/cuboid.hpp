@@ -30,6 +30,13 @@ namespace gml
 		float getHeight() const;
 		float getDepth() const;
 
+		float getLeft() const;
+		float getRight() const;
+		float getBottom() const;
+		float getTop() const;
+		float getBack() const;
+		float getFront() const;
+
 		float getSurfaceArea() const;
 
 		float getVolume() const;

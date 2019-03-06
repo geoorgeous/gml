@@ -7,7 +7,7 @@
 
 namespace gml
 {
-	Rect Rect::unit = Rect{ Vector2::zero, Vector2(0.5f, 0.5f) };
+	Rect Rect::unit = Rect{ Vector2::zero, Vector2(0.5f) };
 
 	float Rect::getWidth() const
 	{

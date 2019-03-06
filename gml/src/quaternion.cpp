@@ -1,8 +1,9 @@
 #include <cmath>
 
+#include "../include/gml/quaternion.hpp"
+
 #include "../include/gml/core.hpp"
 #include "../include/gml/vector/vector_3.hpp"
-#include "../include/gml/quaternion.hpp"
 
 namespace gml
 {
@@ -37,9 +38,9 @@ namespace gml
 	Vector3 Quaternion::getEulerAngles() const
 	{
 		return Vector3(
-			atan2(2.0f * (w * x + y* z), 1.0f - 2.0f * (x * x + y * y)),
-			asin(-2.0f * (w * y - z * x)),
-			atan2(2.0f * (w * z + x * y), 1.0f - 2.0f * (y * y + z * z)));
+			std::atan2(2.0f * (w * x + y* z), 1.0f - 2.0f * (x * x + y * y)),
+			std::asin(-2.0f * (w * y - z * x)),
+			std::atan2(2.0f * (w * z + x * y), 1.0f - 2.0f * (y * y + z * z)));
 	}
 
 	Quaternion& Quaternion::operator=(const Quaternion& rhs)
@@ -76,12 +77,12 @@ namespace gml
 
 	Quaternion Quaternion::fromEulerAngles(const Vector3& eulerAngles)
 	{
-		float cy = cos(eulerAngles.z * 0.5f);
-		float sy = sin(eulerAngles.z * 0.5f);
-		float cp = cos(eulerAngles.y * 0.5f);
-		float sp = sin(eulerAngles.y * 0.5f);
-		float cr = cos(eulerAngles.x * 0.5f);
-		float sr = sin(eulerAngles.x * 0.5f);
+		float cy = std::cos(eulerAngles.z * 0.5f);
+		float sy = std::sin(eulerAngles.z * 0.5f);
+		float cp = std::cos(eulerAngles.y * 0.5f);
+		float sp = std::sin(eulerAngles.y * 0.5f);
+		float cr = std::cos(eulerAngles.x * 0.5f);
+		float sr = std::sin(eulerAngles.x * 0.5f);
 
 		return {
 			cy * cp * cr + sy * sp * sr,
@@ -94,11 +95,11 @@ namespace gml
 	Quaternion axisAngle(float degrees, const Vector3& axis, bool normaliseAxis)
 	{
 		float halfDeg = degrees * 0.5f;
-		float sinHalfAngle = sin(radians(halfDeg));
+		float sinHalfAngle = std::sin(halfDeg * _PI_OVR_180);
 		Vector3 v = (normaliseAxis) ? axis.normal() : axis;
 
 		return {
-			cos(halfDeg),
+			std::cos(halfDeg),
 			v.x * sinHalfAngle,
 			v.y * sinHalfAngle,
 			v.z * sinHalfAngle

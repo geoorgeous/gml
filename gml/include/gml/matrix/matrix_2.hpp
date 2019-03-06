@@ -20,6 +20,7 @@ namespace gml
 		Vector2 columns[2];
 
 		Matrix2() = default;
+		Matrix2(float diagonal);
 		Matrix2(float a, float b,
 			float c, float d);
 		Matrix2(const Vector2& col0, const Vector2& col1);

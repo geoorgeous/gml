@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "../../include/gml/vector/vector_2.hpp"
+
 #include "../../include/gml/vector/vector_3.hpp"
 #include "../../include/gml/vector/vector_4.hpp"
 
@@ -10,13 +11,9 @@ namespace gml
 
 	const Vector2 Vector2::unit{ 1.0f, 1.0f };
 
-	const Vector2 Vector2::posX{ 1.0f, 0.0f };
-
-	const Vector2 Vector2::negX{ -1.f, 0.0f };
-
-	const Vector2 Vector2::posY{ 0.0f, 1.0f };
-
-	const Vector2 Vector2::negY{ 0.0f, -1.f };
+	Vector2::Vector2(float f)
+		: x(f), y(f)
+	{ }
 
 	Vector2::Vector2(float x, float y)
 		: x(x), y(y)

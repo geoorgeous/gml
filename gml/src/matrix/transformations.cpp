@@ -1,7 +1,11 @@
+#include <cmath>
+
 #include "../../include/gml/matrix/transformations.hpp"
 
+#include "../../include/gml/matrix/matrix_4.hpp"
 #include "../../include/gml/quaternion.hpp"
-#include "../../include/gml/vectors.hpp"
+#include "../../include/gml/vector/vector_3.hpp"
+#include "../../include/gml/vector/vector_4.hpp"
 
 namespace gml
 {
@@ -61,8 +65,8 @@ namespace gml
 	{
 		return {
 			Vector4(1.0f, 0.0f, 0.0f, 0.0f),
-			Vector4(0.0f, cosf(radians), sinf(radians), 0.0f),
-			Vector4(0.0f, -sinf(radians), cosf(radians), 0.0f),
+			Vector4(0.0f, std::cosf(radians), std::sinf(radians), 0.0f),
+			Vector4(0.0f, -std::sinf(radians), std::cosf(radians), 0.0f),
 			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
@@ -70,9 +74,9 @@ namespace gml
 	Matrix4 transform_rY(float radians)
 	{
 		return {
-			Vector4(cosf(radians), 0.0f, -sinf(radians), 0.0f),
+			Vector4(std::cosf(radians), 0.0f, -std::sinf(radians), 0.0f),
 			Vector4(0.0f, 1.0f, 0.0f, 0.0f),
-			Vector4(sinf(radians), 0.0f, cosf(radians), 0.0f),
+			Vector4(std::sinf(radians), 0.0f, std::cosf(radians), 0.0f),
 			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};
 	}
@@ -80,8 +84,8 @@ namespace gml
 	Matrix4 transform_rZ(float radians)
 	{
 		return {
-			Vector4(cosf(radians), sinf(radians), 0.0f, 0.0f),
-			Vector4(-sinf(radians), cosf(radians), 0.0f, 0.0f),
+			Vector4(std::cosf(radians), std::sinf(radians), 0.0f, 0.0f),
+			Vector4(-std::sinf(radians), std::cosf(radians), 0.0f, 0.0f),
 			Vector4(0.0f, 0.0f, 1.0f, 0.0f),
 			Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 		};

@@ -22,6 +22,7 @@ namespace gml
 		Vector4 columns[4];
 
 		Matrix4() = default;
+		Matrix4(float diagonal);
 		Matrix4(float a, float b, float c, float d,
 			float e, float f, float g, float h,
 			float i, float j, float k, float l,

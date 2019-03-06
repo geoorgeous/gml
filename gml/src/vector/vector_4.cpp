@@ -1,14 +1,19 @@
 #include <cmath>
 
+#include "../../include/gml/vector/vector_4.hpp"
+
 #include "../../include/gml/vector/vector_2.hpp"
 #include "../../include/gml/vector/vector_3.hpp"
-#include "../../include/gml/vector/vector_4.hpp"
 
 namespace gml
 {
 	const Vector4 Vector4::zero{ 0.0f, 0.0f, 0.0f, 0.0f };
 
 	const Vector4 Vector4::unit{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+	Vector4::Vector4(float f)
+		: x(f), y(f), z(f), w(f)
+	{ }
 
 	Vector4::Vector4(float x, float y, float z, float w)
 		: x(x), y(y), z(z), w(w)

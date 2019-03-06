@@ -7,7 +7,7 @@
 
 namespace gml
 {
-	Cuboid Cuboid::unit = Cuboid{ Vector3::zero, Vector3(0.5f, 0.5f, 0.5f) };
+	Cuboid Cuboid::unit = Cuboid{ Vector3::zero, Vector3(0.5f) };
 
 	float Cuboid::getWidth() const
 	{
@@ -22,6 +22,32 @@ namespace gml
 	float Cuboid::getDepth() const
 	{
 		return halfDepth * 2.0f;
+	}
+
+	float Cuboid::getLeft() const
+	{
+		return center.x - getWidth();
+	}
+	float Cuboid::getRight() const
+	{
+		return center.x + getWidth();
+	}
+	float Cuboid::getBottom() const
+	{
+		return center.y - getHeight();
+	}
+	float Cuboid::getTop() const
+	{
+		return center.y + getHeight();
+	}
+	float Cuboid::getBack() const
+	{
+		return center.z - getDepth();
+	}
+
+	float Cuboid::getFront() const
+	{
+		return center.z + getDepth();
 	}
 
 	float Cuboid::getSurfaceArea() const

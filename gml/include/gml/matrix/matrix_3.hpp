@@ -20,6 +20,7 @@ namespace gml
 		Vector3 columns[3];
 
 		Matrix3() = default;
+		Matrix3(float diagonal);
 		Matrix3(float a, float b, float c,
 			float d, float e, float f,
 			float g, float h, float i);

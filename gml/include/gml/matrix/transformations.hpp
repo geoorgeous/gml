@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "../matrices.hpp"
+#include "matrix_4.hpp"
 
 namespace gml
 {

@@ -1,7 +1,8 @@
 #include <cmath>
 
-#include "../../include/gml/vector/vector_2.hpp"
 #include "../../include/gml/vector/vector_3.hpp"
+
+#include "../../include/gml/vector/vector_2.hpp"
 #include "../../include/gml/vector/vector_4.hpp"
 #include "../../include/gml/quaternion.hpp"
 
@@ -15,6 +16,10 @@ namespace gml
 	const Vector3 Vector3::negY{ 0.0f, -1.f, 0.0f };
 	const Vector3 Vector3::posZ{ 0.0f, 0.0f, 1.0f };
 	const Vector3 Vector3::negZ{ 0.0f, 0.0f, -1.f };
+
+	Vector3::Vector3(float f)
+		: x(f), y(f), z(f)
+	{ }
 
 	Vector3::Vector3(float x, float y, float z)
 		: x(x), y(y), z(z)

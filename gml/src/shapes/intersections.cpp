@@ -1,3 +1,6 @@
+#include <cmath>
+#include <limits>
+
 #include "../../include/gml/shapes/intersections.hpp"
 
 #include "../../include/gml/shapes/circle.hpp"
@@ -8,6 +11,8 @@
 #include "../../include/gml/shapes/point_3d.hpp"
 #include "../../include/gml/shapes/rect.hpp"
 #include "../../include/gml/shapes/sphere.hpp"
+#include "../../include/gml/vector/vector_2.hpp"
+#include "../../include/gml/vector/vector_3.hpp"
 
 namespace gml
 {
@@ -18,7 +23,11 @@ namespace gml
 
 	bool intersection(const Point2D& a, const Line2D& b)
 	{
-		// todo: point-line (2D) intersection
+		Vector2 va = b.p1 - b.p2;
+		Vector2 vb = a.position - b.p2;
+		float area = va.x * vb.y - va.y * vb.x;
+		if (std::abs(area) < std::numeric_limits<float>::epsilon())
+			return true;
 		return false;
 	}
 
@@ -44,13 +53,36 @@ namespace gml
 
 	bool intersection(const Line2D& a, const Line2D& b)
 	{
-		// todo: line-line (2D) intersection
+		return (((b.p1.x - a.p1.x)*(a.p2.y - a.p1.y) - (b.p1.y - a.p1.y)*(a.p2.x - a.p1.x))
+			* ((b.p2.x - a.p1.x)*(a.p2.y - a.p1.y) - (b.p2.y - a.p1.y)*(a.p2.x - a.p1.x)) < 0)
+			&&
+			(((a.p1.x - b.p1.x)*(b.p2.y - b.p1.y) - (a.p1.y - b.p1.y)*(b.p2.x - b.p1.x))
+				* ((a.p2.x - b.p1.x)*(b.p2.y - b.p1.y) - (a.p2.y - b.p1.y)*(b.p2.x - b.p1.x)) < 0);
 		return false;
 	}
 
 	bool intersection(const Line2D& a, const Circle& b)
 	{
-		// todo: line-circle intersection
+		Vector2 d = a.p2 - a.p1;
+		Vector2 f = a.p1 - b.center;
+		float i = d.dot(d);
+		float j = 2 * f.dot(d);
+		float k = f.dot(f) - b.radius * b.radius;
+
+		float discriminant = j * j - 4 * i * k;
+
+		if (discriminant < 0)
+			return false;
+
+		discriminant = sqrt(discriminant);
+
+		float t1 = (-j - discriminant) / (2 * i);
+		float t2 = (-j + discriminant) / (2 * i);
+
+		if (t1 >= 0 && t1 <= 1)
+			return true;
+		if (t2 >= 0 && t2 <= 1)
+			return true;
 		return false;
 	}
 
@@ -122,8 +154,14 @@ namespace gml
 
 	bool intersection(const Point3D& a, const Cuboid& b)
 	{
-		// todo: point-cuboid intersection
-		return false;
+		if (a.position.x > b.getRight() ||
+			a.position.x < b.getLeft() ||
+			a.position.y > b.getTop() ||
+			a.position.y < b.getBottom() ||
+			a.position.z > b.getFront() ||
+			a.position.z < b.getBack())
+			return false;
+		return true;
 	}
 
 	bool intersection(const Line3D& a, const Point3D& b)
@@ -186,7 +224,13 @@ namespace gml
 
 	bool intersection(const Cuboid& a, const Cuboid& b)
 	{
-		// todo: cuboid-cuboid intersection
-		return false;
+		if (a.getLeft() > b.getRight() ||
+			a.getRight() < b.getLeft() ||
+			a.getBottom() > b.getTop() ||
+			a.getTop() < b.getBottom() ||
+			a.getBack() > b.getFront() ||
+			a.getFront() < b.getBack())
+			return false;
+		return true;
 	}
 }

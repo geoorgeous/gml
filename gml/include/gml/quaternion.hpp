@@ -9,6 +9,9 @@
 
 namespace gml
 {
+	/**
+	 * \brief A Quaternion struct used to represent 3D rotations.
+	 */
 	struct Quaternion
 	{
 		static Quaternion identity;

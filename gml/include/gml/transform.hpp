@@ -31,6 +31,9 @@ namespace gml
 
 		const Matrix4& getMatrix() const;
 
+		Transform& operator+=(const Transform& rhs);
+		Transform& operator-=(const Transform& rhs);
+
 	private:
 		Vector3 m_pos;
 		Vector3 m_sca;
@@ -40,6 +43,22 @@ namespace gml
 		mutable bool m_scaChanged;
 		mutable bool m_rotChanged;
 	};
+
+	inline Transform operator+(Transform lhs, const Transform& rhs)
+	{
+		lhs.setPosition(lhs.getPosition() + rhs.getPosition());
+		lhs.setScale(lhs.getScale() + rhs.getScale());
+		lhs.setRotation(lhs.getRotation() + rhs.getRotation());
+		return lhs;
+	}
+
+	inline Transform operator-(Transform lhs, const Transform& rhs)
+	{
+		lhs.setPosition(lhs.getPosition() - rhs.getPosition());
+		lhs.setScale(lhs.getScale() - rhs.getScale());
+		lhs.setRotation(lhs.getRotation() - rhs.getRotation());
+		return lhs;
+	}
 	
 	inline bool operator==(const Transform& lhs, const Transform& rhs)
 	{

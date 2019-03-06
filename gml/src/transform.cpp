@@ -4,7 +4,6 @@
 
 #include "../include/gml/core.hpp"
 #include "../include/gml/matrix/transformations.hpp"
-#include "../include/gml/vectors.hpp"
 
 namespace gml
 {
@@ -72,5 +71,15 @@ namespace gml
 			m_posChanged = m_posChanged = m_rotChanged = false;
 		}
 		return m_mat;
+	}
+
+	Transform& Transform::operator+=(const Transform& rhs)
+	{
+		return *this = *this + rhs;
+	}
+
+	Transform& Transform::operator-=(const Transform& rhs)
+	{
+		return *this = *this - rhs;
 	}
 }

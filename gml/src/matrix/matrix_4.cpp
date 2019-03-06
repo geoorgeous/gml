@@ -1,9 +1,10 @@
 #include <cmath>
 
+#include "../../include/gml/matrix/matrix_4.hpp"
+
 #include "../../include/gml/core.hpp"
 #include "../../include/gml/matrix/matrix_2.hpp"
 #include "../../include/gml/matrix/matrix_3.hpp"
-#include "../../include/gml/matrix/matrix_4.hpp"
 #include "../../include/gml/quaternion.hpp"
 #include "../../include/gml/vector/vector_3.hpp"
 
@@ -23,6 +24,13 @@ namespace gml
 		0.0f, 0.0f, 0.0f, 1.0f
 	};
 
+	Matrix4::Matrix4(float diagonal)
+		: columns{
+			Vector4(diagonal, 0.0f, 0.0f, 0.0f),
+			Vector4(0.0f, diagonal, 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, diagonal, 0.0f),
+			Vector4(0.0f, 0.0f, 0.0f, diagonal)
+	} { }
 
 	Matrix4::Matrix4(float a, float b, float c, float d,
 		float e, float f, float g, float h,
@@ -145,16 +153,16 @@ namespace gml
 
 	float Matrix4::determinant() const
 	{
-		float det = 0.0f;
-		unsigned int subi, subj;
+		float d = 0.0f;
+		int c, subi, subj, i, j;
 		Matrix3 submat;
-		for (unsigned int c = 0; c < 4; c++)
+		for (c = 0; c < 4; c++)
 		{
 			subi = 0;
-			for (unsigned int i = 1; i < 4; i++)
+			for (i = 1; i < 4; i++)
 			{
 				subj = 0;
-				for (unsigned int j = 0; j < 4; j++)
+				for (j = 0; j < 4; j++)
 				{
 					if (j == c)
 						continue;
@@ -163,9 +171,9 @@ namespace gml
 				}
 				subi++;
 			}
-			det = det + (std::powf(-1, static_cast<float>(c)) * columns[0][c] * submat.determinant());
+			d = d + (std::pow(-1, c) * columns[0][c] * submat.determinant());
 		}
-		return det;
+		return d;
 	}
 
 	Vector4& Matrix4::operator[](unsigned int idx)

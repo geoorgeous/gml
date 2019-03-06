@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include "../include/core.hpp"
-#include "../include/vector/vector_3.hpp"
-#include "../include/quaternion.hpp"
+#include "../include/gml/core.hpp"
+#include "../include/gml/vector/vector_3.hpp"
+#include "../include/gml/quaternion.hpp"
 
 namespace gml
 {

@@ -1,9 +1,9 @@
 #include <cmath>
 
-#include "../../include/vector/vector_2.hpp"
-#include "../../include/vector/vector_3.hpp"
-#include "../../include/vector/vector_4.hpp"
-#include "../../include/quaternion.hpp"
+#include "../../include/gml/vector/vector_2.hpp"
+#include "../../include/gml/vector/vector_3.hpp"
+#include "../../include/gml/vector/vector_4.hpp"
+#include "../../include/gml/quaternion.hpp"
 
 namespace gml
 {
@@ -28,14 +28,14 @@ namespace gml
 		: x(vec4.x), y(vec4.y), z(vec4.z)
 	{ }
 
-	float Vector3::magSqr() const
+	float Vector3::magnitudeSq() const
 	{
 		return x * x + y * y + z * z;
 	}
 
-	float Vector3::mag() const
+	float Vector3::magnitude() const
 	{
-		return std::sqrt(magSqr());
+		return std::sqrt(magnitudeSq());
 	}
 
 	float Vector3::dot(const Vector3& v) const
@@ -43,9 +43,14 @@ namespace gml
 		return x * v.x + y * v.y + z * v.z;
 	}
 
-	float Vector3::dist(const Vector3& v) const
+	float Vector3::distance(const Vector3& v) const
 	{
 		return std::sqrt(dot(*this - v));
+	}
+
+	float Vector3::angle(const Vector3& v) const
+	{
+		return std::acos(dot(v) / std::sqrt(magnitudeSq() * v.magnitudeSq()));
 	}
 
 	Vector3 Vector3::cross(const Vector3& v) const
@@ -59,7 +64,7 @@ namespace gml
 
 	Vector3 Vector3::normal() const
 	{
-		float m = mag();
+		float m = magnitude();
 		return{ x / m, y / m, z / m };
 	}
 
@@ -68,23 +73,23 @@ namespace gml
 		return *this = normal();
 	}
 
-	Vector3& Vector3::limit(float magnitude)
+	Vector3& Vector3::limit(float newMagnitude)
 	{
-		float m = mag();
-		x = x * magnitude / m;
-		y = y * magnitude / m;
-		z = z * magnitude / m;
+		float m = magnitude();
+		x = x * newMagnitude / m;
+		y = y * newMagnitude / m;
+		z = z * newMagnitude / m;
 		return *this;
 	}
 
-	float& Vector3::operator[](int i)
+	float& Vector3::operator[](unsigned int idx)
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[idx];
 	}
 
-	const float& Vector3::operator[](int i) const
+	const float& Vector3::operator[](unsigned int idx) const
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[idx];
 	}
 
 	Vector3& Vector3::operator=(const Vector3& rhs)

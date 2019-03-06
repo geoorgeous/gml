@@ -1,13 +1,13 @@
-#include "../../include/shapes/intersections.hpp"
+#include "../../include/gml/shapes/intersections.hpp"
 
-#include "../../include/shapes/circle.hpp"
-#include "../../include/shapes/cuboid.hpp"
-#include "../../include/shapes/line_2d.hpp"
-#include "../../include/shapes/line_3d.hpp"
-#include "../../include/shapes/point_2d.hpp"
-#include "../../include/shapes/point_3d.hpp"
-#include "../../include/shapes/rect.hpp"
-#include "../../include/shapes/sphere.hpp"
+#include "../../include/gml/shapes/circle.hpp"
+#include "../../include/gml/shapes/cuboid.hpp"
+#include "../../include/gml/shapes/line_2d.hpp"
+#include "../../include/gml/shapes/line_3d.hpp"
+#include "../../include/gml/shapes/point_2d.hpp"
+#include "../../include/gml/shapes/point_3d.hpp"
+#include "../../include/gml/shapes/rect.hpp"
+#include "../../include/gml/shapes/sphere.hpp"
 
 namespace gml
 {
@@ -24,7 +24,7 @@ namespace gml
 
 	bool intersection(const Point2D& a, const Circle& b)
 	{
-		return b.center.dist(a.position) <= b.radius;
+		return b.center.distance(a.position) <= b.radius;
 	}
 
 	bool intersection(const Point2D& a, const Rect& b)
@@ -72,7 +72,7 @@ namespace gml
 
 	bool intersection(const Circle& a, const Circle& b)
 	{
-		return a.center.dist(b.center) <= a.radius + b.radius;
+		return a.center.distance(b.center) <= a.radius + b.radius;
 	}
 
 	bool intersection(const Circle& a, const Rect& b)
@@ -117,7 +117,7 @@ namespace gml
 
 	bool intersection(const Point3D& a, const Sphere& b)
 	{
-		return b.center.dist(a.position) <= b.radius;
+		return b.center.distance(a.position) <= b.radius;
 	}
 
 	bool intersection(const Point3D& a, const Cuboid& b)
@@ -160,7 +160,7 @@ namespace gml
 
 	bool intersection(const Sphere& a, const Sphere& b)
 	{
-		return a.center.dist(b.center) < a.radius + b.radius;
+		return a.center.distance(b.center) < a.radius + b.radius;
 	}
 
 	bool intersection(const Sphere& a, const Cuboid& b)

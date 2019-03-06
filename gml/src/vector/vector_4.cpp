@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include "../../include/vector/vector_2.hpp"
-#include "../../include/vector/vector_3.hpp"
-#include "../../include/vector/vector_4.hpp"
+#include "../../include/gml/vector/vector_2.hpp"
+#include "../../include/gml/vector/vector_3.hpp"
+#include "../../include/gml/vector/vector_4.hpp"
 
 namespace gml
 {
@@ -22,14 +22,14 @@ namespace gml
 		: x(vec3.x), y(vec3.y), z(vec3.z)
 	{ }
 
-	float Vector4::magSqr() const
+	float Vector4::magnitudeSq() const
 	{
 		return x * x + y * y + z * z + w * w;
 	}
 
-	float Vector4::mag() const
+	float Vector4::magnitude() const
 	{
-		return std::sqrt(magSqr());
+		return std::sqrt(magnitudeSq());
 	}
 
 	float Vector4::dot(const Vector4& v) const
@@ -37,14 +37,9 @@ namespace gml
 		return x * v.x + y * v.y + z * v.z + w * v.w;
 	}
 
-	float Vector4::dist(const Vector4& v) const
-	{
-		return std::sqrt(dot(*this - v));
-	}
-
 	Vector4 Vector4::normal() const
 	{
-		float m = mag();
+		float m = magnitude();
 		return{ x / m, y / m, z / m, w / m };
 	}
 
@@ -53,24 +48,24 @@ namespace gml
 		return *this = normal();
 	}
 
-	Vector4& Vector4::limit(float magnitude)
+	Vector4& Vector4::limit(float newMagnitude)
 	{
-		float m = mag();
-		x = x * magnitude / m;
-		y = y * magnitude / m;
-		z = z * magnitude / m;
-		w = w * magnitude / m;
+		float m = magnitude();
+		x = x * newMagnitude / m;
+		y = y * newMagnitude / m;
+		z = z * newMagnitude / m;
+		w = w * newMagnitude / m;
 		return *this;
 	}
 
-	float& Vector4::operator[](int i)
+	float& Vector4::operator[](unsigned int idx)
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[idx];
 	}
 
-	const float& Vector4::operator[](int i) const
+	const float& Vector4::operator[](unsigned int idx) const
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[idx];
 	}
 
 	Vector4& Vector4::operator=(const Vector4& rhs)

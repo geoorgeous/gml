@@ -1,8 +1,10 @@
 #include <cmath>
 
-#include "../include/transform.hpp"
+#include "../include/gml/transform.hpp"
 
-#include "../include/core.hpp"
+#include "../include/gml/core.hpp"
+#include "../include/gml/matrix/transformations.hpp"
+#include "../include/gml/vectors.hpp"
 
 namespace gml
 {

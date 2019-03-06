@@ -1,6 +1,6 @@
-#include "../../include/matrix/matrix_2.hpp"
-#include "../../include/matrix/matrix_3.hpp"
-#include "../../include/matrix/matrix_4.hpp"
+#include "../../include/gml/matrix/matrix_2.hpp"
+#include "../../include/gml/matrix/matrix_3.hpp"
+#include "../../include/gml/matrix/matrix_4.hpp"
 
 namespace gml
 {

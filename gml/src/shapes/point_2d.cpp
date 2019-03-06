@@ -1,9 +1,9 @@
-#include "../../include/shapes/point_2d.hpp"
+#include "../../include/gml/shapes/point_2d.hpp"
 
-#include "../../include/shapes/circle.hpp"
-#include "../../include/shapes/intersections.hpp"
-#include "../../include/shapes/line_2d.hpp"
-#include "../../include/shapes/rect.hpp"
+#include "../../include/gml/shapes/circle.hpp"
+#include "../../include/gml/shapes/intersections.hpp"
+#include "../../include/gml/shapes/line_2d.hpp"
+#include "../../include/gml/shapes/rect.hpp"
 
 namespace gml
 {

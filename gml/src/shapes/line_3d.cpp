@@ -1,15 +1,15 @@
-#include "../../include/shapes/line_3d.hpp"
+#include "../../include/gml/shapes/line_3d.hpp"
 
-#include "../../include/shapes/cuboid.hpp"
-#include "../../include/shapes/intersections.hpp"
-#include "../../include/shapes/point_3d.hpp"
-#include "../../include/shapes/sphere.hpp"
+#include "../../include/gml/shapes/cuboid.hpp"
+#include "../../include/gml/shapes/intersections.hpp"
+#include "../../include/gml/shapes/point_3d.hpp"
+#include "../../include/gml/shapes/sphere.hpp"
 
 namespace gml
 {
 	float Line3D::getLength() const
 	{
-		return p1.dist(p2);
+		return p1.distance(p2);
 	}
 
 	bool Line3D::intersects(const Point3D& p) const

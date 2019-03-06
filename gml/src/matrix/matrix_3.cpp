@@ -1,6 +1,6 @@
-#include "../../include/matrix/matrix_2.hpp"
-#include "../../include/matrix/matrix_3.hpp"
-#include "../../include/matrix/matrix_4.hpp"
+#include "../../include/gml/matrix/matrix_2.hpp"
+#include "../../include/gml/matrix/matrix_3.hpp"
+#include "../../include/gml/matrix/matrix_4.hpp"
 
 namespace gml
 {
@@ -49,38 +49,6 @@ namespace gml
 			columns[0][idx],
 			columns[1][idx],
 			columns[2][idx]
-		};
-	}
-
-	Matrix2 Matrix3::topLeft() const
-	{
-		return {
-			Vector2(columns[0]),
-			Vector2(columns[1])
-		};
-	}
-
-	Matrix2 Matrix3::topRight() const
-	{
-		return {
-			Vector2(columns[1]),
-			Vector2(columns[2])
-		};
-	}
-
-	Matrix2 Matrix3::bottomLeft() const
-	{
-		return {
-			Vector2(columns[0][1], columns[0][2]),
-			Vector2(columns[1][1], columns[1][2])
-		};
-	}
-
-	Matrix2 Matrix3::bottomRight() const
-	{
-		return {
-			Vector2(columns[1][1], columns[1][2]),
-			Vector2(columns[2][1], columns[2][2])
 		};
 	}
 

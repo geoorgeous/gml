@@ -1,13 +1,15 @@
-#include "../../include/shapes/circle.hpp"
+#include "../../include/gml/shapes/circle.hpp"
 
-#include "../../include/core.hpp"
-#include "../../include/shapes/intersections.hpp"
-#include "../../include/shapes/line_2d.hpp"
-#include "../../include/shapes/point_2d.hpp"
-#include "../../include/shapes/rect.hpp"
+#include "../../include/gml/core.hpp"
+#include "../../include/gml/shapes/intersections.hpp"
+#include "../../include/gml/shapes/line_2d.hpp"
+#include "../../include/gml/shapes/point_2d.hpp"
+#include "../../include/gml/shapes/rect.hpp"
 
 namespace gml
 {
+	Circle Circle::unit = Circle{ Vector2::zero, 0.5f };
+
 	float Circle::getDiameter() const
 	{
 		return radius * 2.0f;

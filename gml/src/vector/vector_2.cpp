@@ -1,14 +1,22 @@
 #include <cmath>
 
-#include "../../include/vector/vector_2.hpp"
-#include "../../include/vector/vector_3.hpp"
-#include "../../include/vector/vector_4.hpp"
+#include "../../include/gml/vector/vector_2.hpp"
+#include "../../include/gml/vector/vector_3.hpp"
+#include "../../include/gml/vector/vector_4.hpp"
 
 namespace gml
 {
 	const Vector2 Vector2::zero{ 0.0f, 0.0f };
 
 	const Vector2 Vector2::unit{ 1.0f, 1.0f };
+
+	const Vector2 Vector2::posX{ 1.0f, 0.0f };
+
+	const Vector2 Vector2::negX{ -1.f, 0.0f };
+
+	const Vector2 Vector2::posY{ 0.0f, 1.0f };
+
+	const Vector2 Vector2::negY{ 0.0f, -1.f };
 
 	Vector2::Vector2(float x, float y)
 		: x(x), y(y)
@@ -22,14 +30,14 @@ namespace gml
 		: x(vec4.x), y(vec4.y)
 	{ }
 
-	float Vector2::magSqr() const
+	float Vector2::magnitudeSq() const
 	{
 		return x * x + y * y;
 	}
 
-	float Vector2::mag() const
+	float Vector2::magnitude() const
 	{
-		return std::sqrt(magSqr());
+		return std::sqrt(magnitudeSq());
 	}
 
 	float Vector2::dot(const Vector2& v) const
@@ -37,14 +45,19 @@ namespace gml
 		return x * v.x + y * v.y;
 	}
 
-	float Vector2::dist(const Vector2& v) const
+	float Vector2::distance(const Vector2& v) const
 	{
 		return std::sqrt(dot(*this - v));
 	}
 
+	float Vector2::angle(const Vector2& v) const
+	{
+		return std::atan2(x * v.y - y * v.x, dot(v));
+	}
+
 	Vector2 Vector2::normal() const
 	{
-		float m = mag();
+		float m = magnitude();
 		return{ x / m, y / m };
 	}
 
@@ -53,22 +66,22 @@ namespace gml
 		return *this = normal();
 	}
 
-	Vector2& Vector2::limit(float magnitude)
+	Vector2& Vector2::limit(float newMagnitude)
 	{
-		float m = mag();
-		x = x * magnitude / m;
-		y = y * magnitude / m;
+		float m = magnitude();
+		x = x * newMagnitude / m;
+		y = y * newMagnitude / m;
 		return *this;
 	}
 
-	float& Vector2::operator[](int i)
+	float& Vector2::operator[](unsigned int idx)
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[idx];
 	}
 
-	const float& Vector2::operator[](int i) const
+	const float& Vector2::operator[](unsigned int idx) const
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[idx];
 	}
 
 	Vector2& Vector2::operator=(const Vector2& rhs)

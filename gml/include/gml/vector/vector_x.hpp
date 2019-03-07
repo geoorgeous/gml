@@ -10,13 +10,13 @@
 namespace gml
 {
 	/**
-	 * \brief A struct template for Vectors.
+	 * \brief A struct template for vectors.
 	 * \warning Type T must support various operator overloads in order to create a Vector with it, otherwise your program will not compile. This Vector template was written only with the built in types in mind.
 	 */
 	template<typename T, unsigned int Size>
 	struct Vector
 	{
-		T components[Size] = { 0 }; /**> An array of elements of type with a length of Size. The components of the Vector. */
+		T components[Size] = { 0 }; //!< An array of elements of type with a length of Size. The components of the Vector.
 
 		/**
 		 * \brief Calculates and returns the magnitude of the vector multiplied by itself.
@@ -88,8 +88,8 @@ namespace gml
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns A modifiable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. Size - 1].
-		 * \returns A modifiable reference to the component found at position idx.
 		 */
 		T& operator[](unsigned int idx)
 		{
@@ -99,8 +99,8 @@ namespace gml
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns An immutable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. Size - 1].
-		 * \returns A non-mutable reference to the component found at position idx.
 		 */
 		const T& operator[](unsigned int idx) const
 		{

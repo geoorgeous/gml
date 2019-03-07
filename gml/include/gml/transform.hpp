@@ -13,13 +13,33 @@ namespace gml
 {
 	struct Vector3;
 
+	/**
+	 * \brief A transform class which can represent a translation, scale, and rotation in 3D space.
+	 */
 	class Transform
 	{
 	public:
+		/**
+		 * \brief Default construct. By default position and rotation are set to zero while scale is set to 1.
+		 */
 		Transform();
 
+		/**
+		 * \brief Gets the position component of the Transform.
+		 * \returns An immutable reference to the Transform position vector.
+		 */
 		const Vector3& getPosition() const;
+
+		/**
+		 * \brief Gets the scale component of the Transform.
+		 * \returns An immutable reference to the Transform scale vector.
+		 */
 		const Vector3& getScale() const;
+
+		/**
+		 * \brief Gets the rotation component of the Transform.
+		 * \returns An immutable reference to the Transform rotation vector.
+		 */
 		const Vector3& getRotation() const;
 
 		const Vector3& setPosition(const Vector3& newPosition);

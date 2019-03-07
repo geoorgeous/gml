@@ -1,0 +1,28 @@
+var structgml_1_1_vector2 =
+[
+    [ "Vector2", "structgml_1_1_vector2.html#ae54e8c79c8a9c3f76d4ac364d68c5437", null ],
+    [ "Vector2", "structgml_1_1_vector2.html#a212887b99753282be1dc2954c0f8a199", null ],
+    [ "Vector2", "structgml_1_1_vector2.html#acb4af34b6ce0546ad3ddc5168f660642", null ],
+    [ "Vector2", "structgml_1_1_vector2.html#a8bb14785f3b2766b0101b3bb7cddc161", null ],
+    [ "Vector2", "structgml_1_1_vector2.html#ae6cfa5c3bd20fae01ea8ff8ff3fc17d3", null ],
+    [ "angle", "structgml_1_1_vector2.html#a659d4d729465ec052c9fbf87a668d407", null ],
+    [ "distance", "structgml_1_1_vector2.html#a5d1236a630213b5a4250e8e8c5bc3f10", null ],
+    [ "dot", "structgml_1_1_vector2.html#a58e4dd8e955748995002e76e65c12938", null ],
+    [ "limit", "structgml_1_1_vector2.html#a678373d8a12b70b779e8d5495216c35f", null ],
+    [ "magnitude", "structgml_1_1_vector2.html#af2bba45cbd7e925452f4151bdba7ed5e", null ],
+    [ "magnitudeSq", "structgml_1_1_vector2.html#ad5e3f8c1d209534a2d61fd75ca4e2c43", null ],
+    [ "normal", "structgml_1_1_vector2.html#ad564d3f3b146c1a9db6ad89182fbe0cf", null ],
+    [ "normalise", "structgml_1_1_vector2.html#a804687aa1dacb9768a6c17778f926008", null ],
+    [ "operator *=", "structgml_1_1_vector2.html#af212868f02b3d15941a9347f09547243", null ],
+    [ "operator *=", "structgml_1_1_vector2.html#af847760624bbc9a384f8270a024d296a", null ],
+    [ "operator+=", "structgml_1_1_vector2.html#a711addf19f9cb1f9d44356870741dec1", null ],
+    [ "operator-", "structgml_1_1_vector2.html#a8948724488154526ed322564be9a7198", null ],
+    [ "operator-=", "structgml_1_1_vector2.html#a8593a966d24090b51d95b763263143fc", null ],
+    [ "operator/=", "structgml_1_1_vector2.html#a8d6a5614a00ce179e4f9ec2c90d2c1ba", null ],
+    [ "operator/=", "structgml_1_1_vector2.html#aec6c604a915919948e6764dc66c91047", null ],
+    [ "operator=", "structgml_1_1_vector2.html#a075474ce400f788a85a1fbd133c765d0", null ],
+    [ "operator[]", "structgml_1_1_vector2.html#adb6d0c8061779b19e396bd03e3c640e3", null ],
+    [ "operator[]", "structgml_1_1_vector2.html#abe1874f16254057c5927064e5a710926", null ],
+    [ "x", "structgml_1_1_vector2.html#a63f66187d6eb5f525b4b1bcad5c72d92", null ],
+    [ "y", "structgml_1_1_vector2.html#ad6280091bcf9f8021dacb1f353aec8fe", null ]
+];

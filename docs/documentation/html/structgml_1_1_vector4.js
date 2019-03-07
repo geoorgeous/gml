@@ -1,0 +1,28 @@
+var structgml_1_1_vector4 =
+[
+    [ "Vector4", "structgml_1_1_vector4.html#aedd30b890917533ec432e22747cdf1aa", null ],
+    [ "Vector4", "structgml_1_1_vector4.html#a85cb8360677e3f49ce1cd6da97fff797", null ],
+    [ "Vector4", "structgml_1_1_vector4.html#ae1370e9809b85d24d67e5fc0830e1b99", null ],
+    [ "Vector4", "structgml_1_1_vector4.html#ad8ddb0e2da637ee1ff708a7a05944b5f", null ],
+    [ "Vector4", "structgml_1_1_vector4.html#a8bdfc98b3138b9d198ad8e4872e846dc", null ],
+    [ "dot", "structgml_1_1_vector4.html#a48e9afddb73f26a38e76ddd034686ecd", null ],
+    [ "limit", "structgml_1_1_vector4.html#a68ad2bb970652634b3369a3ac8754dce", null ],
+    [ "magnitude", "structgml_1_1_vector4.html#a18cab841d34c6a4b53c390b6abdce6f5", null ],
+    [ "magnitudeSq", "structgml_1_1_vector4.html#ab074bb15f4f50ae1d14ab5b60be94d58", null ],
+    [ "normal", "structgml_1_1_vector4.html#a56fc0a4c38e205d7e5db5b1ec35c2c9f", null ],
+    [ "normalise", "structgml_1_1_vector4.html#a860adeacec50bfb5f10266f2dd197473", null ],
+    [ "operator *=", "structgml_1_1_vector4.html#adaa91432f707606401b5a05b471ff1ff", null ],
+    [ "operator *=", "structgml_1_1_vector4.html#a13a0816c7115bd40fc2f3829ee484791", null ],
+    [ "operator+=", "structgml_1_1_vector4.html#ac4f72e192712b63c641015e12879a539", null ],
+    [ "operator-", "structgml_1_1_vector4.html#ada082ace3cb199dbc0614cd66f96a95a", null ],
+    [ "operator-=", "structgml_1_1_vector4.html#af7bfd33164786960f6a4158412a84897", null ],
+    [ "operator/=", "structgml_1_1_vector4.html#a7dad23172bb35e0dd041cbdc04e03798", null ],
+    [ "operator/=", "structgml_1_1_vector4.html#a4b5ddafdccfe401f075d327962345f94", null ],
+    [ "operator=", "structgml_1_1_vector4.html#ad7a0263f79688f1c7d21d9fca1b385d1", null ],
+    [ "operator[]", "structgml_1_1_vector4.html#af906695b7a60ae94ac6b82d2fe41d718", null ],
+    [ "operator[]", "structgml_1_1_vector4.html#a589a7858c885cb497a68ad07f778c9cb", null ],
+    [ "w", "structgml_1_1_vector4.html#ac08be39959eb0e3769d6fb49d8a004d8", null ],
+    [ "x", "structgml_1_1_vector4.html#acd539cfc1b168d2652d0fdf9521f32de", null ],
+    [ "y", "structgml_1_1_vector4.html#aeafa0cd6754ad7c30d510114e35f9bb7", null ],
+    [ "z", "structgml_1_1_vector4.html#a0fa1cfae162400c6688e5c395b6a7c11", null ]
+];

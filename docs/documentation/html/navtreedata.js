@@ -24,9 +24,22 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "GML", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ]
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
@@ -36,7 +49,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-".html"
+"annotated.html",
+"structgml_1_1_matrix.html#a678012dd7d7b7c80c58a88f766358be3",
+"transformations_8hpp.html#a60464a1ad274558c2b25a0121fb4b8de"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

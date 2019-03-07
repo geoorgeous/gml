@@ -10,7 +10,7 @@
 
 namespace gml
 {
-	typedef Vector<int, 2> Vector2i; /**< A 2-component vector with integer components. */
-	typedef Vector<int, 3> Vector3i; /**< A 3-component vector with integer components. */
-	typedef Vector<int, 4> Vector4i; /**< A 4-component vector with integer components. */
+	typedef Vector<int, 2> Vector2i; //!< A 2-component vector with integer components.
+	typedef Vector<int, 3> Vector3i; //!< A 3-component vector with integer components.
+	typedef Vector<int, 4> Vector4i; //!< A 4-component vector with integer components.
 }

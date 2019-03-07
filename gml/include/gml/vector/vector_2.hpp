@@ -11,20 +11,20 @@ namespace gml
 	struct Vector4;
 	
 	/**
-	 * \brief A mathematical 2D floating-point Vector.
+	 * \brief A mathematical 2D floating-point vector.
 	 * \details A struct representing a 2D Vector whose components are stored as floats.
 	 */
 	struct Vector2
 	{
-		static const Vector2 zero; /**< A Vector2 with x and y members set to 0.0f. */
-		static const Vector2 unit; /**< A Vector2 with x and y members set to 1.0f. The magnitude of this Vector2 will be 1.0f; hence a unit vector. */
-		static const Vector2 posX; /**< A Vector2 with x set to 1.0f and y set to 0.0f. */
-		static const Vector2 negX; /**< A Vector2 with x set to -1.0f and y set to 0.0f. */
-		static const Vector2 posY; /**< A Vector2 with y set to 1.0f and x set to 0.0f. */
-		static const Vector2 negY; /**< A Vector2 with y set to -1.0f and x set to 0.0f. */
+		static const Vector2 zero; //!< A static Vector2 with x and y members set to 0.0f.
+		static const Vector2 unit; //!< A static Vector2 with x and y members set to 1.0f. The magnitude of this Vector2 will be 1.0f; hence a unit vector.
+		static const Vector2 posX; //!< A static Vector2 with x set to 1.0f and y set to 0.0f.
+		static const Vector2 negX; //!< A static Vector2 with x set to -1.0f and y set to 0.0f.
+		static const Vector2 posY; //!< A static Vector2 with y set to 1.0f and x set to 0.0f.
+		static const Vector2 negY; //!< A static Vector2 with y set to -1.0f and x set to 0.0f.
 
-		float x = 0.0f; /**< The first component of the Vector2. \note This component can also be accessed via aVector2[0].*/
-		float y = 0.0f; /**< The second component of the Vector2. \note This component can also be accessed via aVector2[1].*/
+		float x = 0.0f; //!< The first component of the Vector2. \note This component can also be accessed via aVector2[0].*/
+		float y = 0.0f; //!< The second component of the Vector2. \note This component can also be accessed via aVector2[1].*/
 
 		/**
 		 * \brief Default constructor. Elements of the Vector2 are initialised to 0.0f by default.
@@ -114,16 +114,16 @@ namespace gml
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+	 	 * \returns A modifiable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 1].
-	 	 * \returns A modifiable reference to the component found at position idx.
 		 */
 		float& operator[](unsigned int idx);
 
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns An immutable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 1].
-		 * \returns A non-mutable reference to the component found at position idx.
 		 */
 		const float& operator[](unsigned int idx) const;
 

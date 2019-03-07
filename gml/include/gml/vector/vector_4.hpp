@@ -11,18 +11,18 @@ namespace gml
 	struct Vector3;
 
 	/**
-	 * \brief A mathematical 4-component floating-point Vector.
+	 * \brief A mathematical 4-component floating-point vector.
 	 * \details A struct representing a 4-component Vector whose components are stored as floats.
 	 */
 	struct Vector4
 	{
-		static const Vector4 zero; /**< A Vector4 with x, y, z, and w members set to 0.0f. */
-		static const Vector4 unit; /**< A Vector4 with x, y, z, and w members set to 1.0f. The magnitude of this Vector4 will be 1.0f; hence a unit vector. */
+		static const Vector4 zero; //!< A static Vector4 with x, y, z, and w members set to 0.0f.
+		static const Vector4 unit; //!< A static Vector4 with x, y, z, and w members set to 1.0f. The magnitude of this Vector4 will be 1.0f; hence a unit vector.
 
-		float x = 0.0f; /**< The first component of the Vector4. \note This component can also be accessed via aVector4[0].*/
-		float y = 0.0f; /**< The second component of the Vector4. \note This component can also be accessed via aVector4[1].*/
-		float z = 0.0f; /**< The third component of the Vector4. \note This component can also be accessed via aVector4[2].*/
-		float w = 0.0f; /**< The fourth component of the Vector4. \note This component can also be accessed via aVector4[3].*/
+		float x = 0.0f; //!< The first component of the Vector4. \note This component can also be accessed via aVector4[0].
+		float y = 0.0f; //!< The second component of the Vector4. \note This component can also be accessed via aVector4[1].
+		float z = 0.0f; //!< The third component of the Vector4. \note This component can also be accessed via aVector4[2].
+		float w = 0.0f; //!< The fourth component of the Vector4. \note This component can also be accessed via aVector4[3].
 
 		/**
 		 * \brief Default constructor. Elements of the Vector4 are initialised to 0.0f by default.
@@ -99,16 +99,16 @@ namespace gml
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns A modifiable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 3].
-		 * \returns A modifiable reference to the component found at position idx.
 		 */
 		float& operator[](unsigned int idx);
 
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns An immutable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 3].
-		 * \returns A non-mutable reference to the component found at position idx.
 		 */
 		const float& operator[](unsigned int idx) const;
 

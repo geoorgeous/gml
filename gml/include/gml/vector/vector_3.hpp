@@ -12,23 +12,23 @@ namespace gml
 	struct Quaternion;
 
 	/**
-	 * \brief A mathematical 3D floating-point Vector.
+	 * \brief A mathematical 3D floating-point vector.
 	 * \details A struct representing a 3D Vector whose components are stored as floats.
 	 */
 	struct Vector3
 	{
-		static const Vector3 zero; /**< A Vector3 with x, y, and z members set to 0.0f. */
-		static const Vector3 unit; /**< A Vector3 with x, y, and z members set to 1.0f. The magnitude of this Vector3 will be 1.0f; hence a unit vector. */
-		static const Vector3 posX; /**< A Vector3 with x set to 1.0f and y and z set to 0.0f. */
-		static const Vector3 negX; /**< A Vector3 with x set to -1.0f and y and z set to 0.0f. */
-		static const Vector3 posY; /**< A Vector3 with y set to 1.0f and x and z set to 0.0f. */
-		static const Vector3 negY; /**< A Vector3 with y set to -1.0f and x and z set to 0.0f. */
-		static const Vector3 posZ; /**< A Vector3 with z set to 1.0f and x and y set to 0.0f. */
-		static const Vector3 negZ; /**< A Vector3 with z set to -1.0f and x and y set to 0.0f. */
+		static const Vector3 zero; //!< A static Vector3 with x, y, and z members set to 0.0f.
+		static const Vector3 unit; //!< A static Vector3 with x, y, and z members set to 1.0f. The magnitude of this Vector3 will be 1.0f; hence a unit vector.
+		static const Vector3 posX; //!< A static Vector3 with x set to 1.0f and y and z set to 0.0f.
+		static const Vector3 negX; //!< A static Vector3 with x set to -1.0f and y and z set to 0.0f.
+		static const Vector3 posY; //!< A static Vector3 with y set to 1.0f and x and z set to 0.0f.
+		static const Vector3 negY; //!< A static Vector3 with y set to -1.0f and x and z set to 0.0f.
+		static const Vector3 posZ; //!< A static Vector3 with z set to 1.0f and x and y set to 0.0f.
+		static const Vector3 negZ; //!< A static Vector3 with z set to -1.0f and x and y set to 0.0f.
 
-		float x = 0.0f; /**< The first component of the Vector3. \note This component can also be accessed via aVector3[0].*/
-		float y = 0.0f; /**< The second component of the Vector3. \note This component can also be accessed via aVector3[1].*/
-		float z = 0.0f; /**< The third component of the Vector3. \note This component can also be accessed via aVector3[2].*/
+		float x = 0.0f; //!< The first component of the Vector3. \note This component can also be accessed via aVector3[0].
+		float y = 0.0f; //!< The second component of the Vector3. \note This component can also be accessed via aVector3[1].
+		float z = 0.0f; //!< The third component of the Vector3. \note This component can also be accessed via aVector3[2].
 
 		/**
 		 * \brief Default constructor. Elements of the Vector3 are initialised to 0.0f by default.
@@ -127,16 +127,16 @@ namespace gml
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns A modifiable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 2].
-		 * \returns A modifiable reference to the component found at position idx.
 		 */
 		float& operator[](unsigned int idx);
 
 		/**
 		 * \brief Accesses the vector's components using a given index.
 		 * \param idx The specified index of the component to return.
+		 * \returns An immutable reference to the component found at the specified index.
 		 * \warning This function performs no array-bounds checking. the passed index must be [0 .. 2].
-		 * \returns A non-mutable reference to the component found at position idx.
 		 */
 		const float& operator[](unsigned int idx) const;
 

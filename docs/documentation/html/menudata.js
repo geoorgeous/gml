@@ -23,8 +23,72 @@ for the JavaScript code in this file
 */
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
+{text:"Namespaces",url:"namespaces.html",children:[
+{text:"Namespace List",url:"namespaces.html"},
+{text:"Namespace Members",url:"namespacemembers.html",children:[
+{text:"All",url:"namespacemembers.html",children:[
+{text:"a",url:"namespacemembers.html#index_a"},
+{text:"l",url:"namespacemembers.html#index_l"},
+{text:"o",url:"namespacemembers.html#index_o"},
+{text:"p",url:"namespacemembers.html#index_p"},
+{text:"t",url:"namespacemembers.html#index_t"},
+{text:"v",url:"namespacemembers.html#index_v"}]},
+{text:"Functions",url:"namespacemembers_func.html",children:[
+{text:"a",url:"namespacemembers_func.html#index_a"},
+{text:"l",url:"namespacemembers_func.html#index_l"},
+{text:"o",url:"namespacemembers_func.html#index_o"},
+{text:"p",url:"namespacemembers_func.html#index_p"},
+{text:"t",url:"namespacemembers_func.html#index_t"},
+{text:"v",url:"namespacemembers_func.html#index_v"}]},
+{text:"Typedefs",url:"namespacemembers_type.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
-{text:"Class Index",url:"classes.html"}]},
+{text:"Class Index",url:"classes.html"},
+{text:"Class Members",url:"functions.html",children:[
+{text:"All",url:"functions.html",children:[
+{text:"a",url:"functions.html#index_a"},
+{text:"c",url:"functions_c.html#index_c"},
+{text:"d",url:"functions_d.html#index_d"},
+{text:"f",url:"functions_f.html#index_f"},
+{text:"g",url:"functions_g.html#index_g"},
+{text:"i",url:"functions_i.html#index_i"},
+{text:"l",url:"functions_l.html#index_l"},
+{text:"m",url:"functions_m.html#index_m"},
+{text:"n",url:"functions_n.html#index_n"},
+{text:"o",url:"functions_o.html#index_o"},
+{text:"p",url:"functions_p.html#index_p"},
+{text:"r",url:"functions_r.html#index_r"},
+{text:"t",url:"functions_t.html#index_t"},
+{text:"u",url:"functions_u.html#index_u"},
+{text:"v",url:"functions_v.html#index_v"},
+{text:"w",url:"functions_w.html#index_w"},
+{text:"x",url:"functions_x.html#index_x"},
+{text:"y",url:"functions_y.html#index_y"},
+{text:"z",url:"functions_z.html#index_z"}]},
+{text:"Functions",url:"functions_func.html",children:[
+{text:"a",url:"functions_func.html#index_a"},
+{text:"c",url:"functions_func.html#index_c"},
+{text:"d",url:"functions_func.html#index_d"},
+{text:"f",url:"functions_func.html#index_f"},
+{text:"g",url:"functions_func.html#index_g"},
+{text:"i",url:"functions_func.html#index_i"},
+{text:"l",url:"functions_func.html#index_l"},
+{text:"m",url:"functions_func.html#index_m"},
+{text:"n",url:"functions_func.html#index_n"},
+{text:"o",url:"functions_func.html#index_o"},
+{text:"t",url:"functions_func.html#index_t"},
+{text:"v",url:"functions_func.html#index_v"},
+{text:"x",url:"functions_func.html#index_x"}]},
+{text:"Variables",url:"functions_vars.html",children:[
+{text:"c",url:"functions_vars.html#index_c"},
+{text:"i",url:"functions_vars.html#index_i"},
+{text:"n",url:"functions_vars.html#index_n"},
+{text:"p",url:"functions_vars.html#index_p"},
+{text:"r",url:"functions_vars.html#index_r"},
+{text:"u",url:"functions_vars.html#index_u"},
+{text:"w",url:"functions_vars.html#index_w"},
+{text:"x",url:"functions_vars.html#index_x"},
+{text:"y",url:"functions_vars.html#index_y"},
+{text:"z",url:"functions_vars.html#index_z"}]}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"}]}]}
